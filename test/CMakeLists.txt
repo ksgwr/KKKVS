@@ -9,4 +9,5 @@ download_project(PROJ googletest
 add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 include_directories(${googletest_SOURCE_DIR}/include)
 
+add_subdirectory(kkkvs)
 add_subdirectory(hello)
