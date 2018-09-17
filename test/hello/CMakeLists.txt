@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+#cmake_minimum_required(VERSION 3.10)
 
 file(GLOB SRCS *.cpp)
 
@@ -9,5 +9,7 @@ TARGET_LINK_LIBRARIES(testhello
     gtest_main
 )
 
-include(GoogleTest)
-gtest_add_tests(TARGET testhello)
+add_test(NAME testhello
+         COMMAND testhello)
+#include(GoogleTest)
+#gtest_add_tests(TARGET testhello)
