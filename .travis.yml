@@ -1,0 +1,14 @@
+language: cpp
+sudo: required
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - cmake
+script:
+  - install -d build
+  - cd build
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
+  - make VERBOSE=1
+  - make test
