@@ -1,7 +1,7 @@
-#include "kkkvs.hpp"
+#include "kkkvs/kkkvs.hpp"
 #include "gtest/gtest.h"
 
-using namespace KKKVS;
+using namespace kkkvs;
 
 namespace {
     class KKKVSTest : public ::testing::Test {

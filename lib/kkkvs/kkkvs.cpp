@@ -1,7 +1,9 @@
-#include "kkkvs.hpp"
+#include "kkkvs/kkkvs.hpp"
 
-using namespace KKKVS;
+namespace kkkvs {
 
-void KKKVS::KKKVSClient::createEmptyIndex() {
+void KKKVSClient::createEmptyIndex() {
     
+}
+
 }
