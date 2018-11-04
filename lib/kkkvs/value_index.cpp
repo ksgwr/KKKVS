@@ -38,7 +38,7 @@ void ValueIndex::put(std::size_t i, byte* data, std::size_t len) {
 
 
 bool ValueIndex::exists(std::size_t i) {
-  if (values_.size() >= i) {
+  if (values_.size() <= i) {
     return false;
   }
   

@@ -18,5 +18,5 @@ TEST_F(ValueIndexTest, SimpleCase) {
 
     RecordProperty("str1", str1);
 
-    //ASSERT_TRUE(index.exists(0));
+    ASSERT_TRUE(index.exists(0));
 }
