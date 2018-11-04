@@ -30,14 +30,13 @@ TEST_F(ValueIndexTest, SimpleCase) {
 
     EXPECT_FALSE(index.exists(0));
 
-    /*
     // add 1 data (new allocation)
     std::string str3 = "data3";
     std::vector<byte> data3(str3.begin(), str3.end());
     EXPECT_EQ(2, index.add(&data3));
 
     ASSERT_TRUE(index.exists(2));
-
+    /*
     std::vector<byte> actual2 = index.get(2);
     std::string actualStr2(actual2.begin(), actual2.end());
     EXPECT_EQ(str3, actualStr2);
