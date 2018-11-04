@@ -48,6 +48,7 @@ TEST_F(ValueIndexTest, SimpleCase) {
 
     index.checkedRemovedIndex();
 
+    /*
     bool findReuseIndex = false;
     for (int j=0;j<100;j++) {
         std::string tmpStr = "tmp";
@@ -58,5 +59,5 @@ TEST_F(ValueIndexTest, SimpleCase) {
         }
     }
     EXPECT_TRUE(findReuseIndex);
-
+    */
 }
