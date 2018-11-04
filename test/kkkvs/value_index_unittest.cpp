@@ -25,6 +25,7 @@ TEST_F(ValueIndexTest, SimpleCase) {
     std::string actualStr1(actual1.begin(), actual1.end());
     EXPECT_EQ(str1, actualStr1);
 
+    /*
     // remove 1 data
     index.remove(0);
 
@@ -48,7 +49,6 @@ TEST_F(ValueIndexTest, SimpleCase) {
 
     index.checkedRemovedIndex();
 
-    /*
     bool findReuseIndex = false;
     for (int j=0;j<100;j++) {
         std::string tmpStr = "tmp";
