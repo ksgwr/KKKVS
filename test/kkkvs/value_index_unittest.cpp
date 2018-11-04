@@ -36,7 +36,7 @@ TEST_F(ValueIndexTest, SimpleCase) {
     EXPECT_EQ(2, index.add(&data3));
 
     ASSERT_TRUE(index.exists(2));
-    /*
+    
     std::vector<byte> actual2 = index.get(2);
     std::string actualStr2(actual2.begin(), actual2.end());
     EXPECT_EQ(str3, actualStr2);
@@ -58,5 +58,5 @@ TEST_F(ValueIndexTest, SimpleCase) {
         }
     }
     EXPECT_TRUE(findReuseIndex);
-    */
+    
 }
