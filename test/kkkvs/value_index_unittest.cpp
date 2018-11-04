@@ -49,7 +49,7 @@ TEST_F(ValueIndexTest, SimpleCase) {
     index.checkedRemovedIndex();
 
     bool findReuseIndex = false;
-    for (int j=0;j<10;j++) {
+    for (int j=0;j<100;j++) {
         std::string tmpStr = "tmp";
         std::vector<byte> tmpData(tmpStr.begin(), tmpStr.end());
         std::size_t tmpi = index.add(&tmpData);
