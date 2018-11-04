@@ -25,12 +25,12 @@ TEST_F(ValueIndexTest, SimpleCase) {
     std::string actualStr1(actual1.begin(), actual1.end());
     EXPECT_EQ(str1, actualStr1);
 
-    /*
     // remove 1 data
     index.remove(0);
 
     EXPECT_FALSE(index.exists(0));
 
+    /*
     // add 1 data (new allocation)
     std::string str3 = "data3";
     std::vector<byte> data3(str3.begin(), str3.end());
