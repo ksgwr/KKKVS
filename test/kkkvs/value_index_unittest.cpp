@@ -48,18 +48,15 @@ TEST_F(ValueIndexTest, SimpleCase) {
 
     index.checkedRemovedIndex();
 
-    // vector capacity 4
-    std::string str4 = "data4";
-    std::vector<byte> data4(str4.begin(), str4.end());
-    EXPECT_EQ(3, index.add(&data4));
-    std::string str5 = "data5";
-    std::vector<byte> data5(str5.begin(), str5.end());
-    EXPECT_EQ(0, index.add(&data5));
-
-    ASSERT_TRUE(index.exists(0));
-
-    std::vector<byte> actual3 = index.get(0);
-    std::string actualStr3(actual3.begin(), actual3.end());
-    EXPECT_EQ(str5, actualStr3);
+    bool findReuseIndex = false;
+    for (int j=0;j<10;j++) {
+        std::string tmpStr = "tmp";
+        std::vector<byte> tmpData(tmpStr.begin(), tmpStr.end());
+        std::size_t tmpi = index.add(&tmpData);
+        if (tmpi == 0) {
+            findReuseIndex = true;
+        }
+    }
+    EXPECT_TRUE(findReuseIndex);
 
 }
