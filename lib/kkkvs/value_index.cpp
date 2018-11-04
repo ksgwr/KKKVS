@@ -3,7 +3,7 @@
 namespace kkkvs {
 
 ValueIndex::ValueIndex() {
-  
+  checked_ = 0;
 }
 
 ValueIndex::~ValueIndex() {
