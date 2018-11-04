@@ -10,8 +10,8 @@ namespace kkkvs {
 
 class ValueIndex {
   private:
-    std::deque<std::size_t>::iterator checked_;
     std::deque<std::size_t> removes_;
+    std::size_t checked_;
     std::vector<std::vector<byte>*> values_;
 
   public:
@@ -19,11 +19,13 @@ class ValueIndex {
 
     ~ValueIndex();
 
-    std::size_t add(byte*, std::size_t);
-    void put(std::size_t, byte*, std::size_t);
+    std::size_t add(std::vector<byte>*);
+    void put(std::size_t, std::vector<byte>*);
     bool exists(std::size_t);
     std::vector<byte> get(std::size_t);
     void remove(std::size_t);
+    std::size_t getUncheckedRemovedIndex();
+    void checkedRemovedIndex();
   };
   
 }

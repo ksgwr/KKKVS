@@ -3,39 +3,33 @@
 namespace kkkvs {
 
 ValueIndex::ValueIndex() {
-  //next_ = 0;
-  //last_ = 0;
-
+  
 }
 
 ValueIndex::~ValueIndex() {
   //std::vector<std::vector<byte>>().swap(values_);
 }
 
-std::size_t ValueIndex::add(byte* data, std::size_t len) {
+std::size_t ValueIndex::add(std::vector<byte>* data) {
   std::size_t i;
   std::size_t size = values_.size();
-  std::vector<byte> value(data, data + len);
-  if (values_.capacity() == size && !removes_.empty()) {
+  if (values_.capacity() == size && !removes_.empty() 
+      && checked_ > 0) {
     i = removes_.front();
     removes_.pop_front();
-    if (std::begin(removes_) != checked_) {
-      --checked_;
-    }
-    values_[i] = &value;
+    // TODO:: change iterator
+    checked_--;
+    values_[i] = data;
   } else {
-    values_.push_back(&value);
+    values_.push_back(data);
     i = size;
   }
   return i;
 }
 
-
-void ValueIndex::put(std::size_t i, byte* data, std::size_t len) {
-  std::vector<byte> value(data, data + len);
-  values_[i] = &value;
+void ValueIndex::put(std::size_t i, std::vector<byte>* data) {
+  values_[i] = data;
 }
-
 
 bool ValueIndex::exists(std::size_t i) {
   if (values_.size() <= i) {
@@ -43,9 +37,8 @@ bool ValueIndex::exists(std::size_t i) {
   }
   
   if (!removes_.empty()) {
-    // TODO:: use find
-    for(auto it = checked_; it != std::end(removes_); ++it){
-      if (i == *it) {
+    for (std::size_t j=checked_; j<removes_.size();j++) {
+      if (i == j) {
         return false;
       }
     }
@@ -67,9 +60,16 @@ std::vector<byte> ValueIndex::get(std::size_t i) {
 }
 
 void ValueIndex::remove(std::size_t i) {
-  std::vector<byte>* p = nullptr;
-  values_[i] = p;
+  values_[i] = nullptr;
   removes_.push_back(i);
+}
+
+std::size_t ValueIndex::getUncheckedRemovedIndex() {
+  return checked_;
+}
+
+void ValueIndex::checkedRemovedIndex() {
+  ++checked_;
 }
 
 }
