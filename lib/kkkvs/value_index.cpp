@@ -64,11 +64,11 @@ void ValueIndex::remove(std::size_t i) {
   removes_.push_back(i);
 }
 
-std::size_t ValueIndex::getUncheckedRemovedIndex() {
+std::size_t ValueIndex::getUncheckedOldestRemovedIndex() {
   return checked_;
 }
 
-void ValueIndex::checkedRemovedIndex() {
+void ValueIndex::checkOldestRemovedIndex() {
   ++checked_;
 }
 

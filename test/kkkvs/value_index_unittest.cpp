@@ -42,11 +42,11 @@ TEST_F(ValueIndexTest, SimpleCase) {
     EXPECT_EQ(str3, actualStr2);
 
     // add 1 data (reuse)
-    std::size_t i = index.getUncheckedRemovedIndex();
+    std::size_t i = index.getUncheckedOldestRemovedIndex();
     
     EXPECT_EQ(0, i);
 
-    index.checkedRemovedIndex();
+    index.checkOldestRemovedIndex();
 
     bool findReuseIndex = false;
     for (int j=0;j<100;j++) {
