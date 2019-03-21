@@ -6,7 +6,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - cmake
-      - python3-venv
+      - python3
 script:
   - install -d build
   - cd build
