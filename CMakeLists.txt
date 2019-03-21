@@ -15,6 +15,9 @@ include_directories(include)
 # libraries
 add_subdirectory(lib)
 
+# python
+add_subdirectory(python)
+
 # executables
 add_executable(main main.cpp)
 target_link_libraries(main
