@@ -90,6 +90,7 @@ class BuildExt(build_ext):
 
 setup(name = 'kkkvspy',
       author = 'ksgwr',
+      author_email = 'ksgwarai@gmail.com',
       description = 'KKKVS python wrapper',
       long_description = 'KKKVS python wrapper',
       version='0.0.1',
