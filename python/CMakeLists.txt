@@ -18,7 +18,7 @@ if (PYTHON)
     endif()
 
     execute_process(
-        COMMAND ${VENVPY} -m pip install pybind11 wheel --upgrade
+        COMMAND ${VENVPY} -m pip install -r ${CMAKE_CURRENT_SOURCE_DIR}/requirements-dev.txt --upgrade
         RESULT_VARIABLE result
     )
     if(result)
@@ -31,6 +31,12 @@ if (PYTHON)
                        DEPENDS ${DEPS})
 
     add_custom_target(kkkvspy ALL DEPENDS ${BUILD_STAMP})
+
+    if(NOT without-test)
+        enable_testing()
+        add_test(NAME testkkkvspy
+                COMMAND ${VENVPY} ${SETUP_PY} test)
+    endif()
 
     install(CODE "
     file(GLOB whl \"${OUTPUT}/*.whl\")
