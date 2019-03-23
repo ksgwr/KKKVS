@@ -4,28 +4,25 @@ find_program(PYTHON "python3")
 if (PYTHON)
     set(VENV        "${CMAKE_CURRENT_BINARY_DIR}/venv")
     set(VENVPY      "${VENV}/bin/python")
-    set(VENVPIP     "${VENV}/bin/pip")
+    set(VENVPIP     "${VENV}/bin/pip3")
     set(SETUP_PY    "${CMAKE_CURRENT_SOURCE_DIR}/setup.py")
     set(DEPS        "${CMAKE_CURRENT_SOURCE_DIR}/src/__init__.py")
     set(OUTPUT      "${CMAKE_CURRENT_BINARY_DIR}/build")
     
     add_custom_command(OUTPUT ${VENV}
-                        COMMAND ${PYTHON}
-                        ARGS -m venv ${VENV})
+                        COMMAND ${PYTHON} -m venv ${VENV})
 
     add_custom_command(OUTPUT ${VENVPIP}
-                        COMMAND ${VENVPY}
-                        ARGS -m pip install --upgrade pip
+                        COMMAND ${VENVPY} -m pip install --upgrade pip
+                        COMMAND ls ${VENV}/bin
                         DEPENDS ${VENV})
 
     add_custom_command(OUTPUT venv.stamp
-                        COMMAND ${VENVPIP}
-                        ARGS install pybind11 wheel --upgrade
+                        COMMAND ${VENVPIP} install pybind11 wheel --upgrade
                         DEPENDS ${VENVPIP})
 
     add_custom_command(OUTPUT ${OUTPUT}
-                       COMMAND ${VENVPY}
-                       ARGS ${SETUP_PY} bdist_wheel
+                       COMMAND ${VENVPY} ${SETUP_PY} bdist_wheel
                        DEPENDS ${DEPS} venv.stamp)
 
     add_custom_target(kkkvspy ALL DEPENDS ${OUTPUT})
