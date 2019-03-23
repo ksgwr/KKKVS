@@ -1,4 +1,6 @@
-language: cpp
+language: python
+python:
+    - 3.6
 sudo: required
 addons:
   apt:
@@ -6,8 +8,6 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - cmake
-      - python3-pip
-      - python3-setuptools
 script:
   - install -d build
   - cd build
