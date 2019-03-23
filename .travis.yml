@@ -1,7 +1,6 @@
 language: python
 python:
     - 3.6
-compiler: g++
 sudo: required
 addons:
   apt:
@@ -9,9 +8,13 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - cmake
+      - g++-4.9
+env:
+  - CC=gcc-4.9
+  - CXX=g++-4.9
 script:
   - install -d build
   - cd build
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
+  - cmake ..
   - make VERBOSE=1
   - make test
