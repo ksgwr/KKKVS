@@ -1,6 +1,7 @@
 language: python
 python:
     - 3.6
+compiler: g++
 sudo: required
 addons:
   apt:
