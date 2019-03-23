@@ -6,6 +6,7 @@ if (PYTHON)
     set(VENVPY      "${VENV}/bin/python")
     set(SETUP_PY    "${CMAKE_CURRENT_SOURCE_DIR}/setup.py")
     set(DEPS        "${CMAKE_CURRENT_SOURCE_DIR}/src/__init__.py")
+    set(BUILD_STAMP "${CMAKE_CURRENT_BINARY_DIR}/dist.stamp")
     set(OUTPUT      "${CMAKE_CURRENT_BINARY_DIR}/dist")
     
     add_custom_command(OUTPUT ${VENV}
