@@ -16,7 +16,7 @@ if (PYTHON)
     add_custom_command(OUTPUT ${VENVPIP}
                         COMMAND ${VENVPY}
                         ARGS -m pip install --upgrade pip
-                        DEPENDS ${VENVPY})
+                        DEPENDS ${VENV})
 
     add_custom_command(OUTPUT venv.stamp
                         COMMAND ${VENVPIP}
