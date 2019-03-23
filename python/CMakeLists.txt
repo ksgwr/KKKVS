@@ -13,10 +13,15 @@ if (PYTHON)
                         COMMAND ${PYTHON}
                         ARGS -m venv ${VENV})
 
+    add_custom_command(OUTPUT ${VENVPIP}
+                        COMMAND ${VENVPY}
+                        ARGS -m pip install --upgrade pip
+                        DEPENDS ${VENVPY})
+
     add_custom_command(OUTPUT venv.stamp
                         COMMAND ${VENVPIP}
                         ARGS install pybind11 wheel --upgrade
-                        DEPENDS ${VENV})
+                        DEPENDS ${VENVPIP})
 
     add_custom_command(OUTPUT ${OUTPUT}
                        COMMAND ${VENVPY}
