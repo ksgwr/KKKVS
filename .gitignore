@@ -2,3 +2,7 @@ build/*
 wbuild/*
 .vs/*
 .vscode/*
+*.a
+*.so
+CMakeTmp
+CMakeFiles

@@ -5,9 +5,16 @@ if (PYTHON)
     set(VENV        "${CMAKE_CURRENT_BINARY_DIR}/venv")
     set(VENVPY      "${VENV}/bin/python")
     set(SETUP_PY    "${CMAKE_CURRENT_SOURCE_DIR}/setup.py")
-    set(DEPS        "${CMAKE_CURRENT_SOURCE_DIR}/src/kkkvspy.cpp")
     set(BUILD_STAMP "${CMAKE_CURRENT_BINARY_DIR}/dist.stamp")
     set(OUTPUT      "${CMAKE_CURRENT_BINARY_DIR}/dist")
+    file(GLOB_RECURSE DEPS 
+            "${CMAKE_CURRENT_SOURCE_DIR}/*.py"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/*.py"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.py")
+
+    configure_file("setup.cfg" "setup.cfg" COPYONLY)
+    configure_file("pytest.ini.in" "pytest.ini")
     
     execute_process(
         COMMAND ${PYTHON} -m venv ${VENV}
@@ -18,7 +25,7 @@ if (PYTHON)
     endif()
 
     execute_process(
-        COMMAND ${VENVPY} -m pip install -r ${CMAKE_CURRENT_SOURCE_DIR}/requirements-dev.txt --upgrade
+        COMMAND ${VENVPY} -m pip install -r ${CMAKE_CURRENT_SOURCE_DIR}/requirements-dev.txt --upgrade --quiet
         RESULT_VARIABLE result
     )
     if(result)
@@ -41,7 +48,7 @@ if (PYTHON)
     install(CODE "
     file(GLOB WHL \"${OUTPUT}/*.whl\")
     if (WHL)
-        execute_process(COMMAND ${PYTHON} -m pip install \${WHL})
+        execute_process(COMMAND ${PYTHON} -m pip install \${WHL} --upgrade)
     endif()")
 else()
     message(WARNING "skip python library build in case of not found python3 program")
