@@ -7,6 +7,8 @@ import setuptools
 
 __version__ = '0.0.1'
 
+PYTHON_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
     The purpose of this class is to postpone importing pybind11
@@ -24,12 +26,14 @@ class get_pybind_include(object):
 ext_modules = [
     Extension(
         'kkkvspy',
-        [os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src', 'kkkvspy.cpp')],
+        [os.path.join(PYTHON_ROOT_DIR, 'src', 'kkkvspy.cpp')],
         include_dirs=[
             # Path to pybind11 headers
             get_pybind_include(),
-            get_pybind_include(user=True)
+            get_pybind_include(user=True),
+            os.path.join(PYTHON_ROOT_DIR, '..', 'include')
         ],
+        extra_objects=['../lib/kkkvs/libkkkvs.a'],
         language='c++'
     ),
 ]
