@@ -13,6 +13,7 @@ class ValueIndex {
     std::deque<std::size_t> removes_;
     std::size_t checked_;
     std::vector<std::vector<byte>*> values_;
+    //std::vector<bool> usedList_;
 
   public:
     ValueIndex();

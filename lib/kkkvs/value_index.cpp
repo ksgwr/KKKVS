@@ -19,8 +19,14 @@ std::size_t ValueIndex::add(std::vector<byte>* data) {
     removes_.pop_front();
     // TODO:: change iterator
     checked_--;
+    //std::vector<byte> v(data->size());
+    //std::copy(data->begin(), data->end(), v.begin());
+    //values_[i] = &v;
     values_[i] = data;
   } else {
+    //std::vector<byte> v(data->size());
+    //std::copy(data->begin(), data->end(), v.begin());
+    //values_.push_back(&v);
     values_.push_back(data);
     i = size;
   }
@@ -36,6 +42,7 @@ bool ValueIndex::exists(std::size_t i) {
     return false;
   }
   
+  // removeしてたら常にnullptrな気がするがいる？=>keyIndexで持つべきロジック？
   if (!removes_.empty()) {
     for (std::size_t j=checked_; j<removes_.size();j++) {
       if (i == j) {
@@ -49,8 +56,11 @@ bool ValueIndex::exists(std::size_t i) {
 }
 
 std::vector<byte> ValueIndex::get(std::size_t i) {
+  if (values_.size() <= i) {
+    return std::vector<byte>();
+  }
   std::vector<byte>* value = values_.at(i);
-  if (value == nullptr) {
+  if (value == nullptr || value->size() == 0) {
     return std::vector<byte>();
   } else {
     std::vector<byte> v(value->size());
