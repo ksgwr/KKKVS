@@ -28,7 +28,7 @@ public:
     std::size_t add(const std::string &data) {
         std::cout << data << std::endl;
         std::vector<byte> byteData(data.begin(), data.end());
-        return kkkvs::ValueIndex::add(&byteData);
+        return kkkvs::ValueIndex::add(byteData);
     }
 
     py::bytes get(std::size_t i) {

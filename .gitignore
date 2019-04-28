@@ -4,5 +4,6 @@ wbuild/*
 .vscode/*
 *.a
 *.so
+.DS_Store
 CMakeTmp
 CMakeFiles

@@ -12,7 +12,7 @@ class MainTest(unittest.TestCase):
         last = index.add([1,2,3])
         self.assertEqual(last, 0)
         # test failed (MemoryError: std::bad_alloc)
-        #self.assertIsNotNone(index.get(last))
+        self.assertIsNotNone(index.get(last))
 
 
 if __name__ == '__main__':
