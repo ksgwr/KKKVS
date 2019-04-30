@@ -18,10 +18,10 @@ script:
 - make VERBOSE=1
 - make test ARGS='-V'
 before_deploy:
-- cd python
+- cd ../python
 deploy:
   provider: pypi
-  server: https://testpypi.python.org/pypi
+  server: https://test.pypi.org/legacy/
   user: "ksgwr"
   password:
     secure: fdmZ+PMys1077Yq8x6xwWqHh8fzaxj1PojngHXlDvGgcbXNrTjXMUoyifSpSocp0YJrB7sQgeOuDPWD5dC/kinQ1my+v5NgNS2Oy/l/4mhodpOwThqYiAp6wOQjLu8GgMBFFVW6nij2ZCcJA/mBPoeZFb9pbf7c6Mfl1ENLq/ndpNn4DVrSA+IfkygidPZrpDhgWi0QOIVkUbztcSVOWRRQH5lLZv4Zkn3nUNtbvYpUkI1dnKYLKVLgPOG9Uwya5xOhlSJm/j3DPBMaV1H7tQXn0lLrTpFL34FZtpRn97oM1r+wJo9QVX+BLCuQ3E2IhqLlHJOGwoNXVctZNasdGnmphERZNzOzOig3eUrKKcWD34C2hw/3+jY3qYzrNYEVA52DmW93je/6XXBaxtg0zuAXGlQhS2nDqEzA9fPKibx3hbsfHCzlNj5wzMb0bAAvHp+T1xDaX1HXcA6k5lXvNlzmdUYGJYarQ7G9odQtxR4mZoJ+vcO2iaBP3nHRhyOc3tpv+0uG0FGa44AY1GTSuWI9PgOUdgWlAcfQw2eNv+OzNEnbG30ufzGIn2kzG5IHuBawmhv8kVicOfxq8zHLBvKSv41JPVt5YphGeDZsukAjgvv1BHBx1xAnYJS3ZK0aZ3i5oMDuNtI2lO+qzC8fI9sHnCBdA2W65m+vxqcj4Vhs=
