@@ -22,25 +22,22 @@ py::bytes create() {
     return py::bytes(s);
 }
 
-class ValueIndex : public kkkvs::ValueIndex {
+class PyValueIndex : public kkkvs::ValueIndex {
 public:
 
     std::size_t add(const std::string &data) {
-        std::cout << data << std::endl;
         std::vector<byte> byteData(data.begin(), data.end());
         return kkkvs::ValueIndex::add(byteData);
+    }
+
+    void put(std::size_t i, const std::string &data) {
+        std::vector<byte> byteData(data.begin(), data.end());
+        kkkvs::ValueIndex::put(i, byteData);
     }
 
     py::bytes get(std::size_t i) {
         std::vector<byte> v = kkkvs::ValueIndex::get(i);
         std::string s(v.begin(), v.end());
-        /*
-        std::string str1("data2");
-        std::vector<byte> value(str1.begin(), str1.end());
-        std::size_t last = kkkvs::ValueIndex::add(&value);
-        std::vector<byte> v = kkkvs::ValueIndex::get(last);
-        std::string s(v.begin(), v.end());
-        */
         return py::bytes(s);
     }
 };
@@ -51,14 +48,16 @@ PYBIND11_MODULE(kkkvspy, m) {
     m.def("add", &add, "A function which adds two numbers")
         .def("create", &create, "create sample data");
 
-    py::class_<ValueIndex>(m, "ValueIndex")
+    py::class_<PyValueIndex>(m, "ValueIndex")
             .def(py::init<>())
-            .def("add", (std::size_t (ValueIndex::*)(std::vector<byte> *)) & ValueIndex::add, py::arg("data"))
-            .def("add", (std::size_t (ValueIndex::*)(const std::string &)) & ValueIndex::add, py::arg("data"))
-            .def("put", &ValueIndex::put, py::arg("i"), py::arg("data"))
-            .def("exists", &ValueIndex::exists, py::arg("i"))
-            .def("get", (py::bytes (ValueIndex::*)(std::size_t)) & ValueIndex::get, py::arg("i"))
-            .def("remove", &ValueIndex::remove, py::arg("i"))
-            .def("get_unchecked_oldest_removed_index", &ValueIndex::getUncheckedOldestRemovedIndex)
-            .def("checkOldestRemovedIndex", &ValueIndex::checkOldestRemovedIndex);
+            //.def("add", (std::size_t (WrapValueIndex::*)(std::vector<byte> *)) & WrapValueIndex::add, py::arg("data"))
+            .def("add", (std::size_t (PyValueIndex::*)(const std::string &)) & PyValueIndex::add, py::arg("data"))
+            //.def("put", (void (WrapValueIndex::*)(std::size_t, std::vector<byte> *)) & WrapValueIndex::put, py::arg("i"), py::arg("data"))
+            .def("put", (void (PyValueIndex::*)(std::size_t, const std::string &)) & PyValueIndex::put, py::arg("i"), py::arg("data"))
+            .def("exists", &PyValueIndex::exists, py::arg("i"))
+            .def("get", (py::bytes (PyValueIndex::*)(std::size_t)) & PyValueIndex::get, py::arg("i"))
+            .def("remove", (void (PyValueIndex::*)(std::size_t, bool)) & PyValueIndex::remove, py::arg("i"), py::arg("hard"))
+            .def("remove", (void (PyValueIndex::*)(std::size_t)) & PyValueIndex::remove, py::arg("i"))
+            .def("getUncheckedOldestRemovedIndex", &PyValueIndex::getUncheckedOldestRemovedIndex)
+            .def("checkRemovedIndex", &PyValueIndex::checkRemovedIndex, py::arg("i"));
 }

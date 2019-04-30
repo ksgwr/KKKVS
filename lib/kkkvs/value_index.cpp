@@ -7,7 +7,6 @@ namespace kkkvs {
 const std::vector<byte> EMPTY;
 
 ValueIndex::ValueIndex() {
-  checked_ = 0;
 }
 
 ValueIndex::~ValueIndex() {
@@ -18,12 +17,10 @@ std::size_t ValueIndex::add(const std::vector<byte>& data) {
   std::size_t i;
   std::size_t size = values_.size();
   
-  if (values_.capacity() == size && !removes_.empty() 
-      && checked_ > 0) {
+  if (values_.capacity() == size && !removes_.empty()) {
     i = removes_.front();
     removes_.pop_front();
     // TODO:: change iterator
-    checked_--;
     Value& value = values_.at(i);
     value.data = data;
     value.used = true;
@@ -54,23 +51,37 @@ const std::vector<byte> ValueIndex::get(std::size_t i) {
   return values_.at(i).data;
 }
 
-void ValueIndex::remove(std::size_t i) {
-  Value& value = values_.at(i);
-  value.data = EMPTY;
+void ValueIndex::remove(std::size_t i, bool hard) {
+  Value& value = values_.at(i);  
   value.used = false;
 
-  removes_.push_back(i);
+  if (hard) {
+    value.data = EMPTY;
+    removes_.push_back(i);
+  } else {
+    uncheckes_.push_back(i);
+  }
+}
+
+void ValueIndex::remove(std::size_t i) {
+  ValueIndex::remove(i, false);
 }
 
 int ValueIndex::getUncheckedOldestRemovedIndex() {
-  if (removes_.empty() || checked_ >= removes_.size()) {
+  if (uncheckes_.empty()) {
     return -1;
   }
-  return removes_.at(checked_);
+  std::size_t i = uncheckes_.front();
+  uncheckes_.pop_front();
+  return i;
 }
 
-void ValueIndex::checkOldestRemovedIndex() {
-  ++checked_;
+void ValueIndex::checkRemovedIndex(std::size_t i) {
+  if (values_.size() <= i) {
+    return;
+  }
+  values_.at(i).data = EMPTY;
+  removes_.push_back(i);
 }
 
 }

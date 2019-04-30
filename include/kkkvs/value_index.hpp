@@ -16,7 +16,7 @@ typedef struct Value_ {
 class ValueIndex {
   private:
     std::deque<std::size_t> removes_;
-    std::size_t checked_;
+    std::deque<std::size_t> uncheckes_;
     std::vector<Value> values_;
 
   public:
@@ -28,9 +28,10 @@ class ValueIndex {
     void put(std::size_t, const std::vector<byte>&);
     bool exists(std::size_t);
     const std::vector<byte> get(std::size_t);
+    void remove(std::size_t, bool);
     void remove(std::size_t);
     int getUncheckedOldestRemovedIndex();
-    void checkOldestRemovedIndex();
+    void checkRemovedIndex(std::size_t);
   };
   
 }

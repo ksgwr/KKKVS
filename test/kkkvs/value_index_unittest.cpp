@@ -54,7 +54,7 @@ TEST_F(ValueIndexTest, SimpleCase) {
     
     EXPECT_EQ(1, i2);
 
-    index.checkOldestRemovedIndex();
+    index.checkRemovedIndex(i2);
 
     int i3 = index.getUncheckedOldestRemovedIndex();
 
