@@ -18,6 +18,7 @@ script:
 - make VERBOSE=1
 - make test ARGS='-V'
 before_deploy:
+- cp lib/kkkvs/libkkkvs.a ../lib/kkkvs/.
 - cd ../python
 deploy:
   provider: pypi
