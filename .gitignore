@@ -4,6 +4,7 @@ wbuild/*
 .vscode/*
 *.a
 *.so
+*.pyc
 .DS_Store
 CMakeTmp
 CMakeFiles
