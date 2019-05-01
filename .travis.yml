@@ -27,6 +27,8 @@ script:
 before_deploy:
   - sudo chown -R travis:travis /home/travis/
   - cd build/python
+  - rm dist/*
+  - cp wheelhouse/* dist/.
 deploy:
   provider: pypi
   server: https://test.pypi.org/legacy/
