@@ -1,6 +1,12 @@
 KKKVS(Work In Progress) [![Build Status](https://travis-ci.org/ksgwr/KKKVS.svg?branch=master)](https://travis-ci.org/ksgwr/KKKVS)
 =====
 
+# Install
+
+```
+$ pip install -i https://test.pypi.org/simple/ kkkvs
+```
+
 # Setup
 
 ```
