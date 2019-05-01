@@ -92,7 +92,7 @@ class BuildExt(build_ext):
             ext.extra_compile_args = opts
         build_ext.build_extensions(self)
 
-setup(name = 'kkkvspy',
+setup(name = 'kkkvs',
       author = 'ksgwr',
       author_email = 'ksgwarai@gmail.com',
       description = 'KKKVS python wrapper',
