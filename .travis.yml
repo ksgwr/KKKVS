@@ -1,26 +1,28 @@
-language: python
-python:
-- 3.6
-sudo: required
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - cmake
-    - g++-4.9
-env:
-- CC=gcc-4.9 CXX=g++-4.9
+matrix:
+  include:
+    - sudo: required
+      services:
+        - docker
+      env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
+           PLAT=manylinux1_x86_64
+    - sudo: required
+      services:
+        - docker
+      env: DOCKER_IMAGE=quay.io/pypa/manylinux1_i686
+           PRE_CMD=linux32
+           PLAT=manylinux1_i686
+    - sudo: required
+      services:
+        - docker
+      env: DOCKER_IMAGE=quay.io/pypa/manylinux2010_x86_64
+           PLAT=manylinux2010_x86_64
+
+install:
+  - docker pull $DOCKER_IMAGE
 script:
-- install -d build
-- cd build
-- cmake ..
-- make VERBOSE=1
-- make test ARGS='-V'
+  - docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels.sh
 before_deploy:
-- cd python
-#- cp lib/kkkvs/libkkkvs.a ../lib/kkkvs/.
-#- cd ../python
+  - cd build/python
 deploy:
   provider: pypi
   server: https://test.pypi.org/legacy/

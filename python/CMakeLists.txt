@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.8.12)
 
+configure_file("setup.cfg" "setup.cfg" COPYONLY)
+configure_file("pytest.ini.in" "pytest.ini")
+
 find_program(PYTHON "python3")
 if (PYTHON)
     set(VENV        "${CMAKE_CURRENT_BINARY_DIR}/venv")
@@ -13,9 +16,6 @@ if (PYTHON)
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.py"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.py")
-
-    configure_file("setup.cfg" "setup.cfg" COPYONLY)
-    configure_file("pytest.ini.in" "pytest.ini")
     
     execute_process(
         COMMAND ${PYTHON} -m venv ${VENV}
