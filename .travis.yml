@@ -28,7 +28,7 @@ install:
   - if [ -n "$DOCKER_IMAGE" ]; then
       docker pull $DOCKER_IMAGE;
     else
-      pip install cmake
+      pip install cmake;
     fi
 script:
   - if [ -n "$DOCKER_IMAGE" ]; then
