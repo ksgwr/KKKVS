@@ -25,10 +25,10 @@ matrix:
            PLAT=manylinux2010_x86_64
 
 install:
-  - "[ -n '$DOCKER_IMAGE' ] && docker pull $DOCKER_IMAGE"
+  - '[ -n "$DOCKER_IMAGE" ] && docker pull $DOCKER_IMAGE'
 script:
-  - "[ -n '$DOCKER_IMAGE' ] && docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels.sh"
-  - "[ -z '$DOCKER_IMAGE' ] && mkdir build && cd build && cmake .. && make & make test & cd .."
+  - '[ -n "$DOCKER_IMAGE" ] && docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels.sh'
+  - '[ -z "$DOCKER_IMAGE" ] && mkdir build && cd build && cmake .. && make & make test & cd ..'
 before_deploy:
   - sudo chown -R travis:travis /home/travis/
   - cd build/python
