@@ -30,7 +30,7 @@ install:
   - if [ -n "$DOCKER_IMAGE" ]; then
       docker pull $DOCKER_IMAGE;
     else
-      sudo pip install cmake;
+      brew install cmake;
     fi
 script:
   - if [ -n "$DOCKER_IMAGE" ]; then
