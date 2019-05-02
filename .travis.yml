@@ -1,3 +1,4 @@
+language: python
 matrix:
   include:
     - sudo: required
@@ -44,10 +45,12 @@ script:
       cd ..;
     fi
 before_deploy:
-  - sudo chown -R travis:travis /home/travis/
   - cd build/python
-  - rm dist/*
-  - cp wheelhouse/* dist/.
+  - if [ -n "$DOCKER_IMAGE" ]; then 
+      sudo chown -R travis:travis /home/travis/;
+      rm dist/*
+      cp wheelhouse/* dist/.
+    fi
 deploy:
   provider: pypi
   server: https://test.pypi.org/legacy/
