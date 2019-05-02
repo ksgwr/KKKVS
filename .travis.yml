@@ -1,11 +1,14 @@
 language: python
+sudo: required
 matrix:
   include:
     - sudo: required
       os: osx
+      osx_image: xcode8.3
       python: 3.6
     - sudo: required
       os: osx
+      osx_image: xcode8.3
       python: 3.5
     - sudo: required
       python: 3.6
@@ -48,8 +51,8 @@ before_deploy:
   - cd build/python
   - if [ -n "$DOCKER_IMAGE" ]; then 
       sudo chown -R travis:travis /home/travis/;
-      rm dist/*
-      cp wheelhouse/* dist/.
+      rm dist/*;
+      cp wheelhouse/* dist/.;
     fi
 deploy:
   provider: pypi
