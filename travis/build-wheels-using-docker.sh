@@ -30,6 +30,7 @@ for whl in dist/*.whl; do
 done
 
 for PYBIN in /opt/python/*/bin; do
+    rm *.so
     find $ROOT_DIR/python | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
     "${PYBIN}/python" ${ROOT_DIR}/python/setup.py test
 done
