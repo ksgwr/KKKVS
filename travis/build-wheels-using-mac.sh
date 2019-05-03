@@ -7,8 +7,7 @@ readonly VERSIONS=(3.4-dev 3.5-dev 3.6-dev 3.7-dev 3.8-dev)
 # install require library
 for version in ${VERSIONS[@]}; do
     if [ ! -d ~/.pyenv/versions/$version ]; then
-        CPPFLAGS=-I$(brew --prefix openssl)/include \
-        LDFLAGS=-L$(brew --prefix openssl)/lib \
+        CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)" \
         pyenv install $version
     fi
 done
