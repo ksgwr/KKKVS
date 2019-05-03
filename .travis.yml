@@ -4,7 +4,7 @@ sudo: required
 matrix:
   include:
     - os: osx
-      osx_image: xcode8.3
+      osx_image: xcode6.4
       language: generic
     - services:
         - docker
@@ -24,8 +24,7 @@ install:
   - if [ -n "$DOCKER_IMAGE" ]; then
       docker pull $DOCKER_IMAGE;
     else
-      brew install cmake openssl@1.1;
-      brew upgrade pyenv;
+      brew upgrade pyenv cmake openssl@1.1;
     fi
 script:
   - if [ -n "$DOCKER_IMAGE" ]; then
