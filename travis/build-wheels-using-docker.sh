@@ -18,6 +18,8 @@ cd python
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
     "${PYBIN}/pip" install -r ${ROOT_DIR}/python/requirements-dev.txt
+    find $ROOT_DIR/python | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
+    # for rebuild in cp27m and cp27mu
     rm -rf build
     "${PYBIN}/python" ${ROOT_DIR}/python/setup.py test bdist_wheel
 done
