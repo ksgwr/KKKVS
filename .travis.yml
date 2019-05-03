@@ -25,8 +25,8 @@ install:
       docker pull $DOCKER_IMAGE;
     else
       brew update;
-      brew install openssl readline;
-      brew outdated pyenv || brew upgrade pyenv;
+      brew uninstall pyenv;
+      brew install pyenv;
     fi
 script:
   - if [ -n "$DOCKER_IMAGE" ]; then
