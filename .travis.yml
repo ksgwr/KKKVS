@@ -23,7 +23,7 @@ install:
   - if [ -n "$DOCKER_IMAGE" ]; then
       docker pull $DOCKER_IMAGE;
     else
-      brew install cmake;
+      brew install cmake readline openssl xz;
       brew upgrade pyenv;
     fi
 script:
