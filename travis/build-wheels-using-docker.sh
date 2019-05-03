@@ -30,7 +30,7 @@ for whl in dist/*.whl; do
 done
 
 for PYBIN in /opt/python/*/bin; do
-    rm -f *.so
-    find $ROOT_DIR/python | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
+    # for rebuild in cp27m and cp27mu
+    rm -rf build
     "${PYBIN}/python" ${ROOT_DIR}/python/setup.py test
 done
