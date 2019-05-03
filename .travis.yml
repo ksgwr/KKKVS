@@ -1,26 +1,20 @@
 language: python
+python: 3.6
 sudo: required
 matrix:
   include:
     - os: osx
-      osx_image: xcode8.3
-      python: 3.6-dev
-    - os: osx
-      osx_image: xcode8.3
-      python: 3.5-dev
-    - python: 3.6
-      services:
+      language: generic
+    - services:
         - docker
       env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
            PLAT=manylinux1_x86_64
-    - python: 3.6
-      services:
+    - services:
         - docker
       env: DOCKER_IMAGE=quay.io/pypa/manylinux1_i686
            PRE_CMD=linux32
            PLAT=manylinux1_i686
-    - python: 3.6
-      services:
+    - services:
         - docker
       env: DOCKER_IMAGE=quay.io/pypa/manylinux2010_x86_64
            PLAT=manylinux2010_x86_64
@@ -29,22 +23,17 @@ install:
   - if [ -n "$DOCKER_IMAGE" ]; then
       docker pull $DOCKER_IMAGE;
     else
-      brew install cmake;
+      brew install cmake pyenv;
     fi
 script:
   - if [ -n "$DOCKER_IMAGE" ]; then
-      docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels.sh;
+      docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels-using-docker.sh;
     else
-      mkdir build;
-      cd build;
-      cd cmake ..;
-      make;
-      make test;
-      cd ..;
+      travis/build-wheels-using-mac.sh;
     fi
 before_deploy:
-  - cd build/python
-  - if [ -n "$DOCKER_IMAGE" ]; then 
+  - if [ -n "$DOCKER_IMAGE" ]; then
+      cd build/python;
       sudo chown -R travis:travis /home/travis/;
       rm dist/*;
       cp wheelhouse/* dist/.;
