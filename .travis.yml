@@ -32,6 +32,8 @@ install:
       brew install openssl readline
       brew outdated python@3 || brew upgrade python@3
       brew outdated pyenv || brew upgrade pyenv
+      brew list --versions
+      printenv
     fi
 script:
   - |
