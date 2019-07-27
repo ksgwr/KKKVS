@@ -4,7 +4,8 @@ sudo: required
 matrix:
   include:
     - os: osx
-      osx_image: xcode10.2
+      osx_image: xcode11
+      #osx_image: xcode10.2
       language: generic
     - services:
         - docker
@@ -25,10 +26,10 @@ install:
     if [ -n "$DOCKER_IMAGE" ]; then
       docker pull $DOCKER_IMAGE
     else
-      sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
+      #sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
       brew uninstall openssl
       brew update
-      brew install openssl
+      brew install openssl readline
       brew outdated python@3 || brew upgrade python@3
       brew outdated pyenv || brew upgrade pyenv
     fi
