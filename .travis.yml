@@ -28,12 +28,12 @@ install:
     else
       #sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
       brew uninstall openssl@1.1
-      brew update
-      brew install openssl readline
-      brew outdated python@3 || brew upgrade python@3
-      brew outdated pyenv || brew upgrade pyenv
-      brew list --versions
-      printenv
+      #brew update
+      #brew install openssl readline
+      #brew outdated python@3 || brew upgrade python@3
+      #brew outdated pyenv || brew upgrade pyenv
+      #brew list --versions
+      #printenv
     fi
 script:
   - |
