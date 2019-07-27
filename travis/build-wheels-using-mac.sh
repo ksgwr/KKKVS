@@ -22,6 +22,8 @@ cd python
 # Compile wheels
 for version in ${VERSIONS[@]}; do
     export PYENV_VERSION=$version
+    pyenv versions
+    pip --version
     pip install -r $ROOT_DIR/python/requirements-dev.txt
     find $ROOT_DIR/python | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
     python $ROOT_DIR/python/setup.py test bdist_wheel
