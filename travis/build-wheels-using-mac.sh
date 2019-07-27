@@ -19,6 +19,7 @@ make
 make test ARGS='-V'
 cd python
 
+eval "$(pyenv init -)"
 # Compile wheels
 for version in ${VERSIONS[@]}; do
     pyenv install $version
