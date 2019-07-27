@@ -44,9 +44,9 @@ script:
     fi
 before_deploy:
   - |
-    if [ -n "$DOCKER_IMAGE" ]; then
-      cd build/python
-      sudo chown -R travis:travis /home/travis/
+    cd build/python
+    sudo chown -R travis:travis /home/travis/
+    if [ -n "$DOCKER_IMAGE" ]; then  
       rm dist/*
       cp wheelhouse/* dist/.
     else
