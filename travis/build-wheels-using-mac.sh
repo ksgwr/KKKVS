@@ -23,6 +23,8 @@ cd python
 for version in ${VERSIONS[@]}; do
     pyenv install $version
     export PYENV_VERSION=$version
+    which pyenv
+    pyenv versions
     python --version
     python -m pip install -r $ROOT_DIR/python/requirements-dev.txt
     find $ROOT_DIR/python | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
