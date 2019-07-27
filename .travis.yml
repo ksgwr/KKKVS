@@ -49,6 +49,8 @@ before_deploy:
       sudo chown -R travis:travis /home/travis/
       rm dist/*
       cp wheelhouse/* dist/.
+    else
+      brew install openssl@1.1
     fi
 deploy:
   provider: pypi
