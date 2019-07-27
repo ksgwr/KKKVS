@@ -26,14 +26,9 @@ install:
     if [ -n "$DOCKER_IMAGE" ]; then
       docker pull $DOCKER_IMAGE
     else
-      #sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
+      # for using openssl because pyenv choose openssl@1.1 than openssl (python-build:use_homebrew_openssl)
+      # when use openssl@1.1, ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
       brew uninstall openssl@1.1
-      #brew update
-      #brew install openssl readline
-      #brew outdated python@3 || brew upgrade python@3
-      #brew outdated pyenv || brew upgrade pyenv
-      #brew list --versions
-      #printenv
     fi
 script:
   - |
@@ -45,8 +40,8 @@ script:
 before_deploy:
   - |
     cd build/python
-    sudo chown -R travis:travis /home/travis/
-    if [ -n "$DOCKER_IMAGE" ]; then  
+    if [ -n "$DOCKER_IMAGE" ]; then
+      sudo chown -R travis:travis /home/travis/
       rm dist/*
       cp wheelhouse/* dist/.
     else
