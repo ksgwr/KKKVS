@@ -2,7 +2,7 @@
 set -e -x
 
 readonly ROOT_DIR=$(cd $(dirname $0)/../; pwd)
-readonly VERSIONS=(3.4-dev 3.5-dev 3.6-dev 3.7-dev 3.8-dev)
+readonly VERSIONS=($PYTHON_VERSIONS)
 
 eval "$(pyenv init -)"
 # install require library
