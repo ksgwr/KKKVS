@@ -45,7 +45,7 @@ before_deploy:
       cp wheelhouse/* dist/.
     else
       brew install openssl@1.1
-      python -m pip install python/requirements-dev.txt
+      python -m pip install -r python/requirements-dev.txt
       cd build/python
     fi
 deploy:
