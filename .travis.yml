@@ -5,7 +5,6 @@ matrix:
   include:
     - os: osx
       osx_image: xcode11
-      #osx_image: xcode10.2
       language: generic
     - services:
         - docker
@@ -39,13 +38,15 @@ script:
     fi
 before_deploy:
   - |
-    cd build/python
     if [ -n "$DOCKER_IMAGE" ]; then
+      cd build/python
       sudo chown -R travis:travis /home/travis/
       rm dist/*
       cp wheelhouse/* dist/.
     else
       brew install openssl@1.1
+      python -m pip install python/requirements-dev.txt
+      cd build/python
     fi
 deploy:
   provider: pypi
