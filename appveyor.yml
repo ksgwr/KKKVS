@@ -9,6 +9,7 @@ platform:
   - x64
   - Win32
 configuration: Release
+clone_depth: 2
 
 build_script:
 - cmd: call ci\build-wheels-using-windows.bat
