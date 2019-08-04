@@ -1,0 +1,14 @@
+branches:
+  only:
+    - master
+
+#skip_non_tags: true
+
+image: Visual Studio 2017
+platform:
+  - x64
+  - Win32
+configuration: Release
+
+build_script:
+- cmd: call ci\build-wheels-using-windows.bat

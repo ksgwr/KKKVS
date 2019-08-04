@@ -49,9 +49,9 @@ install:
 script:
   - |
     if [ -n "$DOCKER_IMAGE" ]; then
-      docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE /io/travis/build-wheels-using-docker.sh
+      docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE /io/ci/build-wheels-using-docker.sh
     else
-      ./travis/build-wheels-using-mac.sh
+      ./ci/build-wheels-using-mac.sh
     fi
 before_deploy:
   - |
