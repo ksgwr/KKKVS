@@ -10,6 +10,11 @@ platform:
   - Win32
 configuration: Release
 
+init:
+- ps: Set-WinSystemLocale ja-JP
+- ps: Start-Sleep -s 5
+- ps: Restart-Computer
+
 clone_script:
   - cmd: >-
       git clone -q --branch=%APPVEYOR_REPO_BRANCH% https://github.com/%APPVEYOR_REPO_NAME%.git %APPVEYOR_BUILD_FOLDER%
