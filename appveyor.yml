@@ -18,4 +18,4 @@ clone_script:
       && git submodule update --init --recursive
 
 build_script:
-- cmd: call ci\build-wheels-using-windows.bat
+- cmd: call ci\build-wheels-using-windows.bat %platform%
