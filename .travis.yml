@@ -41,7 +41,7 @@ install:
   - |
     if [ -n "$DOCKER_IMAGE" ]; then
       docker pull $DOCKER_IMAGE
-    else
+    #else
       # for using openssl because pyenv choose openssl@1.1 than openssl (python-build:use_homebrew_openssl)
       # when use openssl@1.1, ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
       #brew uninstall --ignore-dependencies openssl@1.1
