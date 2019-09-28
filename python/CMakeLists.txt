@@ -3,10 +3,18 @@ cmake_minimum_required(VERSION 2.8.12)
 configure_file("setup.cfg" "setup.cfg" COPYONLY)
 configure_file("pytest.ini.in" "pytest.ini")
 
-find_program(PYTHON "python3")
+if (WIN32)
+    find_program(PYTHON "python.exe")
+else()
+    find_program(PYTHON "python3")
+endif()
 if (PYTHON)
-    set(VENV        "${CMAKE_CURRENT_BINARY_DIR}/venv")
-    set(VENVPY      "${VENV}/bin/python")
+    set(VENV "${CMAKE_CURRENT_BINARY_DIR}/venv")
+    if (WIN32)
+        set(VENVPY "${VENV}/Scripts/python.exe")
+    else()
+        set(VENVPY "${VENV}/bin/python")
+    endif()
     set(SETUP_PY    "${CMAKE_CURRENT_SOURCE_DIR}/setup.py")
     set(BUILD_STAMP "${CMAKE_CURRENT_BINARY_DIR}/dist.stamp")
     set(OUTPUT      "${CMAKE_CURRENT_BINARY_DIR}/dist")
@@ -34,7 +42,7 @@ if (PYTHON)
     endif()
 
     add_custom_command(OUTPUT ${BUILD_STAMP}
-                       COMMAND ${VENVPY} ${SETUP_PY} bdist_wheel
+                       COMMAND CXX=${CMAKE_CXX_COMPILER} ${VENVPY} ${SETUP_PY} bdist_wheel
                        COMMAND touch ${BUILD_STAMP}
                        DEPENDS ${DEPS} ${LIBSTATIC})
 
@@ -52,5 +60,5 @@ if (PYTHON)
         execute_process(COMMAND ${PYTHON} -m pip install \${WHL} --upgrade)
     endif()")
 else()
-    message(WARNING "skip python library build in case of not found python3 program")
+    message(WARNING "skip building python library in case of not found python3 program")
 endif()

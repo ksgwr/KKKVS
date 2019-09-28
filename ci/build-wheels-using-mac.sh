@@ -16,8 +16,8 @@ done
 mkdir -p ${ROOT_DIR}/build
 cd ${ROOT_DIR}/build
 cmake ..
-make
-make test ARGS='-V'
+cmake --build .
+ctest --verbose
 cd python
 
 # Compile wheels

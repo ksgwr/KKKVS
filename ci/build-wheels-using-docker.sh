@@ -11,8 +11,8 @@ yum install gcc-c++ -y
 mkdir -p ${ROOT_DIR}/build
 cd ${ROOT_DIR}/build
 /opt/python/cp35-cp35m/bin/cmake ..
-make
-make test ARGS='-V'
+/opt/python/cp35-cp35m/bin/cmake --build .
+/opt/python/cp35-cp35m/bin/ctest --verbose
 cd python
 
 # Compile wheels
