@@ -8,7 +8,7 @@ eval "$(pyenv init -)"
 # install require library
 for version in ${VERSIONS[@]}; do
     if [ ! -d ~/.pyenv/versions/$version ]; then
-        CONFIGURE_OPTS="--with-openssl=$(brew --prefix openssl)" pyenv install $version
+        pyenv install $version
     fi
 done
 
