@@ -24,7 +24,8 @@ if (PYTHON)
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.py"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
             "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.py")
-    
+
+
     execute_process(
         COMMAND ${PYTHON} -m venv ${VENV}
         RESULT_VARIABLE result
@@ -42,10 +43,9 @@ if (PYTHON)
     endif()
 
     add_custom_command(OUTPUT ${BUILD_STAMP}
-                       COMMAND CXX=${CMAKE_CXX_COMPILER} ${VENVPY} ${SETUP_PY} bdist_wheel
-                       COMMAND touch ${BUILD_STAMP}
+                       COMMAND ${VENVPY} ${SETUP_PY} bdist_wheel
+                       COMMAND ${CMAKE_COMMAND} -E touch ${BUILD_STAMP}
                        DEPENDS ${DEPS} ${LIBSTATIC})
-
     add_custom_target(kkkvspy ALL DEPENDS ${BUILD_STAMP})
 
     if(NOT without-test)

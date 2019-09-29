@@ -3,10 +3,11 @@ python: 3.6
 sudo: required
 matrix:
   include:
-    - os: osx
-      osx_image: xcode11
-      language: generic
-      env: PYTHON_VERSIONS=3.4-dev
+    #  when use openssl@1.1, ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
+    #- os: osx
+    #  osx_image: xcode11
+    #  language: generic
+    #  env: PYTHON_VERSIONS=3.4-dev
     - os: osx
       osx_image: xcode11
       language: generic

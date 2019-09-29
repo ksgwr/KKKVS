@@ -33,7 +33,8 @@ ext_modules = [
             get_pybind_include(user=True),
             os.path.join(PYTHON_ROOT_DIR, '..', 'include')
         ],
-        extra_objects=['../lib/kkkvs/libkkkvs.a'],
+        extra_objects=['../lib/kkkvs/libkkkvs.a'] if sys.platform != 'win32' else ['../lib/kkkvs/Release/kkkvs.lib'],
+        #extra_objects=['../lib/kkkvs/libkkkvs.a'],
         language='c++'
     ),
 ]
@@ -74,6 +75,10 @@ class BuildExt(build_ext):
         'msvc': ['/EHsc'],
         'unix': [],
     }
+    #link_opts = {
+    #    'msvc': [],
+    #    'unix': []
+    #}
 
     if sys.platform == 'darwin':
         c_opts['unix'] += ['-stdlib=libc++', '-mmacosx-version-min=10.7']
@@ -81,6 +86,7 @@ class BuildExt(build_ext):
     def build_extensions(self):
         ct = self.compiler.compiler_type
         opts = self.c_opts.get(ct, [])
+        #lopts = self.link_opts.get(ct, [])
         if ct == 'unix':
             opts.append('-DVERSION_INFO="%s"' % self.distribution.get_version())
             opts.append(cpp_flag(self.compiler))
@@ -90,6 +96,7 @@ class BuildExt(build_ext):
             opts.append('/DVERSION_INFO=\\"%s\\"' % self.distribution.get_version())
         for ext in self.extensions:
             ext.extra_compile_args = opts
+            #ext.extra_link_args = lopts
         build_ext.build_extensions(self)
 
 setup(name = 'kkkvs',
