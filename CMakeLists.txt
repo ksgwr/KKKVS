@@ -27,6 +27,7 @@ target_link_libraries(main
     hello)
 
 # tests
+# skip test because it can not build gtest in MSVC
 if(NOT without-test AND NOT MSVC)
   enable_testing()
   add_subdirectory(test)
