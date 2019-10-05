@@ -3,78 +3,73 @@ python: 3.6
 sudo: required
 matrix:
   include:
-    #  when use openssl@1.1, ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
-    #- os: osx
-    #  osx_image: xcode11
-    #  language: generic
-    #  env: PYTHON_VERSIONS=3.4-dev
-    - os: osx
-      osx_image: xcode11
-      language: generic
-      env: PYTHON_VERSIONS=3.5-dev
-    - os: osx
-      osx_image: xcode11
-      language: generic
-      env: PYTHON_VERSIONS=3.6-dev
-    - os: osx
-      osx_image: xcode11
-      language: generic
-      env: PYTHON_VERSIONS=3.7-dev
-    - os: osx
-      osx_image: xcode11
-      language: generic
-      env: PYTHON_VERSIONS=3.8-dev
-    - services:
-        - docker
-      env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
-           PLAT=manylinux1_x86_64
-    - services:
-        - docker
-      env: DOCKER_IMAGE=quay.io/pypa/manylinux1_i686
-           PRE_CMD=linux32
-           PLAT=manylinux1_i686
-    - services:
-        - docker
-      env: DOCKER_IMAGE=quay.io/pypa/manylinux2010_x86_64
-           PLAT=manylinux2010_x86_64
-
+  #  when use openssl@1.1, ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
+  #- os: osx
+  #  osx_image: xcode11
+  #  language: generic
+  #  env: PYTHON_VERSIONS=3.4-dev
+  - os: osx
+    osx_image: xcode11
+    language: generic
+    env: PYTHON_VERSIONS=3.5-dev
+  - os: osx
+    osx_image: xcode11
+    language: generic
+    env: PYTHON_VERSIONS=3.6-dev
+  - os: osx
+    osx_image: xcode11
+    language: generic
+    env: PYTHON_VERSIONS=3.7-dev
+  - os: osx
+    osx_image: xcode11
+    language: generic
+    env: PYTHON_VERSIONS=3.8-dev
+  - services:
+    - docker
+    env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64 PLAT=manylinux1_x86_64
+  - services:
+    - docker
+    env: DOCKER_IMAGE=quay.io/pypa/manylinux1_i686 PRE_CMD=linux32 PLAT=manylinux1_i686
+  - services:
+    - docker
+    env: DOCKER_IMAGE=quay.io/pypa/manylinux2010_x86_64 PLAT=manylinux2010_x86_64
 install:
-  - |
-    if [ -n "$DOCKER_IMAGE" ]; then
-      docker pull $DOCKER_IMAGE
-    #else
-      # for using openssl because pyenv choose openssl@1.1 than openssl (python-build:use_homebrew_openssl)
-      # when use openssl@1.1, ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
-      #brew uninstall --ignore-dependencies openssl@1.1
-      #brew install openssl
-    fi
+- |
+  if [ -n "$DOCKER_IMAGE" ]; then
+    docker pull $DOCKER_IMAGE
+  #else
+    # for using openssl because pyenv choose openssl@1.1 than openssl (python-build:use_homebrew_openssl)
+    # when use openssl@1.1, ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
+    #brew uninstall --ignore-dependencies openssl@1.1
+    #brew install openssl
+  fi
 script:
-  - |
-    if [ -n "$DOCKER_IMAGE" ]; then
-      docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE /io/ci/build-wheels-using-docker.sh
-    else
-      ./ci/build-wheels-using-mac.sh
-    fi
+- |
+  if [ -n "$DOCKER_IMAGE" ]; then
+    docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE /io/ci/build-wheels-using-docker.sh
+  else
+    ./ci/build-wheels-using-mac.sh
+  fi
 before_deploy:
-  - |
-    if [ -n "$DOCKER_IMAGE" ]; then
-      cd build/python
-      sudo chown -R travis:travis /home/travis/
-      rm dist/*
-      cp wheelhouse/* dist/.
-    else
-      brew install openssl@1.1
-      python -m pip install -r python/requirements-dev.txt
-      cd build/python
-    fi
+- |
+  if [ -n "$DOCKER_IMAGE" ]; then
+    cd build/python
+    sudo chown -R travis:travis /home/travis/
+    rm dist/*
+    cp wheelhouse/* dist/.
+  else
+    brew install openssl@1.1
+    python -m pip install -r python/requirements-dev.txt
+    cd build/python
+  fi
 deploy:
   provider: pypi
   server: https://test.pypi.org/legacy/
-  user: "ksgwr"
+  user: ksgwr
   password:
-    secure: "ham98BFHYGN/kLxkbojTCMzpI2INDtYwO4FS1zo4Fm2WkOZKKuuZ9pwNbvD78U4tKCAdXvIV/GBoVEP25s21FZQPNW9f1YTjGxs6+O2LzsvZfedT/ZFOCtM/1+2ZRsHXMAGfgpFrNjWXcNOWrjMpc6IFZlkXpTfU6taQZY0PlVBeDflW1BSdLpmJRyWtL68F0cPrhcFxALDmLFbG2rrIV9NZjpA4mWu1ri6o3ryiGWysBP5rAaB2Rb3Fz3Md9LRZ9NAqB1Aw2R6IeHPkdAxFOdZ/H41Xg1tfZWAkLojf4Clhrzv17/I2O7yxc3vwCP2gA+5UxtmjbWE6fQoVzzI7562BkFveKKyJ0sHg3A6GrwjIsyeONH98b+oLQMSbtbxONGDjI7OrbRJvlPiDfYQfNWaiNNFiCsKvkcBlOi2ANPV57B7krUT8Ik41/AcJX7WG5SV+P+qUH0KGcZ2vxWGo5RRumvSmqK6b6ANKxT7v8O17xOSodeIWHydkcpzfTQ9i8DNkGn63MsCeS2i8SqfuI+PHcJQSJRGNbbjOM1FUWYtx6GcQtrN44wCQ+OOIZS4fnoxl2IIepLRUKLijJsy0c83/DjWgS7A3sznklqWrQdaw56GD6Gmi5N6GcqqICIDo+RQ23cfmmaHB2bPKGIboHecyf9Q3O9dxQAwdjUrg0j0="
+    secure: a8pgAHToR8DU06ZV+LskmytvpjyTrcseXJ+hGJHis2nl0PbRLSJ//oCAizVHk0khwfcMfGXhwJfl/Gbs+FH+WI7JqY9KiW2VmzBWCGripVq7bT1Q1GRTeNa7N40tT6rJpaM7JTOMvIjKq6tcRXOBIgFiQfjtTwn/YQRz6SPoTGHj3+K/qu9li+JOdNJfL+PtGagA3l3+Wia0yBZsPgVjRcly/b3fGcJSDl/05Ds/3uQuWqS/A61HMfaGatnxcZWfAyTTH8tVjtZ3MYTRoOmeauZnY2wdQvkUvcomL9wuiv2HNC7vFd5sKTlFIALJSpoyed9UAVyXja5aihmCccX17EhkRd8i6QQO33QDBqMqCKBkHSeL+TW5LwMM9WY1+LO93EWErhZfcVAz04YbS7EoNmvnaUg05YYra9tUX7cTR5hTTnd5n3oMl+kBPPDq4MomXD1Inv2f/Kyxhz52UQdrkiitmKwDsR0ph6s6Y+/301qPJJRyHB3w3dOjeyvOPOenupz5LFOvVqnTf9WmWURNL7GA9c1Ub+PJcF2IPf1pApUITi1vNmaY0sKhjayBWe2+gavqTA+JbufVtPBhN4JJ0xujOs68iETf7oT+y8za0Ker8G9A9oBGLVD2XYxV3RDDN0cu3nM8CDWWDwQBsQhCpvQmU5vsuQmAqXju1NwFQQk=
   #on:
   #  tags: true
-  distributions: "bdist_wheel"
+  distributions: bdist_wheel
   skip_cleanup: true
   skip_existing: true
