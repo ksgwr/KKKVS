@@ -26,8 +26,7 @@ build_script:
 - cmd: call ci\build-wheels-using-windows.bat %platform%
 
 artifacts:
-  # current directory : build dir
-  - path: python\dist\*.whl
+  - path: build\python\dist\*.whl
 
 deploy_script:
   - echo [distutils]                                  > %USERPROFILE%\\.pypirc
@@ -40,4 +39,4 @@ deploy_script:
   - echo password=%TEST_PYPIPASSWORD%                >> %USERPROFILE%\\.pypirc
   - set HOME=%USERPROFILE%   
   # TODO: if ("%APPVEYOR_REPO_TAG%"=="true") upload pypi
-  - win_build.cmd twine upload -r testpypi --skip-existing python\dist\*
+  - "win_build.cmd twine upload -r testpypi --skip-existing build\python\dist\*"
