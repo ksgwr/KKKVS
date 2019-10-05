@@ -14,6 +14,9 @@ ctest -C Release
 cd python
 
 rem https://www.appveyor.com/docs/windows-images-software/#python
+call :BuildPython C:\Python27%PLATFORM_PREFIX%
+call :BuildPython C:\Python33%PLATFORM_PREFIX%
+call :BuildPython C:\Python34%PLATFORM_PREFIX%
 call :BuildPython C:\Python35%PLATFORM_PREFIX%
 call :BuildPython C:\Python36%PLATFORM_PREFIX%
 call :BuildPython C:\Python37%PLATFORM_PREFIX%
