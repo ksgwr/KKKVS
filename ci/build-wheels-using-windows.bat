@@ -18,6 +18,9 @@ call :BuildPython C:\Python35%PLATFORM_PREFIX%
 call :BuildPython C:\Python36%PLATFORM_PREFIX%
 call :BuildPython C:\Python37%PLATFORM_PREFIX%
 
+cd %ROOT_DIR%
+exit
+
 :BuildPython
 %1\python -m pip install -r %ROOT_DIR%\python\requirements-dev.txt
 %1\python %ROOT_DIR%\python\setup.py test bdist_wheel
