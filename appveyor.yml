@@ -7,7 +7,7 @@ branches:
 environment:
   PYPI_USERNAME: ksgwr
   TEST_PYPIPASSWORD:
-    secure: oaP3zOZ8+sPtBuKfOYnlUDFlC1aPNHC19mW266rGfbI=
+    secure: NeiXDBjvTet+017Bsek8ZQ==
 
 image: Visual Studio 2017
 platform:
@@ -29,7 +29,7 @@ artifacts:
   - path: build\python\dist\*.whl
 
 deploy_script:
-  - cmd: set TESTREPO=https://upload.pypi.org/legacy/
+  - cmd: set TESTREPO=https://test.pypi.org/legacy/
   - python -m pip install twine
   - set HOME=%USERPROFILE%
   # current directory : build
