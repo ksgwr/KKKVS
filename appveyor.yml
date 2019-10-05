@@ -39,4 +39,4 @@ deploy_script:
   - echo password=%TEST_PYPIPASSWORD%                >> %USERPROFILE%\\.pypirc
   - set HOME=%USERPROFILE%   
   # TODO: if ("%APPVEYOR_REPO_TAG%"=="true") upload pypi
-  - "win_build.cmd twine upload -r testpypi --skip-existing build\python\dist\*"
+  - twine upload -r testpypi --skip-existing build\python\dist\*
