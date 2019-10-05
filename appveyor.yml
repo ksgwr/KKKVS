@@ -29,8 +29,8 @@ artifacts:
   - path: build\python\dist\*.whl
 
 deploy_script:
-  - cmd: set TESTREPO=https://test.pypi.org/legacy/
-  - cmd: set USERNAME=%PYPI_USERNAME%
+  - cmd: set TESTREPO=https://upload.pypi.org/legacy/
   - python -m pip install twine
   - set HOME=%USERPROFILE%
-  - python -m twine upload --skip-existing python\dist\* --repository-url %TESTREPO% -u %USERNAME% -p %TEST_PYPIPASSWORD%
+  # current directory : build
+  - python -m twine upload --skip-existing python\dist\* --repository-url %TESTREPO% -u %PYPI_USERNAME% -p %TEST_PYPIPASSWORD%
