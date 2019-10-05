@@ -13,6 +13,7 @@ cmake --build . --config Release
 ctest -C Release
 cd python
 
+rem https://www.appveyor.com/docs/windows-images-software/#python
 call :BuildPython C:\Python35%PLATFORM_PREFIX%
 call :BuildPython C:\Python36%PLATFORM_PREFIX%
 call :BuildPython C:\Python37%PLATFORM_PREFIX%
@@ -23,3 +24,5 @@ call :BuildPython C:\Python37%PLATFORM_PREFIX%
 rmdir /Q /S build
 del /S *.pyd
 exit /b
+
+cd %ROOT_DIR%
