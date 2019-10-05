@@ -27,8 +27,10 @@ target_link_libraries(main
     hello)
 
 # tests
-# skip test because it can not build gtest in MSVC
-if(NOT without-test AND NOT MSVC)
+if(NOT without-test)
   enable_testing()
-  add_subdirectory(test)
+  # skip test because it can not build gtest in MSVC
+  if (NOT MSVC)
+    add_subdirectory(test)
+  endif()
 endif()

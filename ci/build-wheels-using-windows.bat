@@ -7,5 +7,6 @@ set PATH=c:\Python37%PLATFORM_PREFIX%;c:\Program Files\Git\usr\bin;c:\MinGW\bin;
 
 mkdir build
 cd build
-cmake ..
+cmake .. -A %PLATFORM%
 cmake --build . --config Release
+ctest -C Release
