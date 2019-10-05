@@ -24,5 +24,3 @@ call :BuildPython C:\Python37%PLATFORM_PREFIX%
 rmdir /Q /S build
 del /S *.pyd
 exit /b
-
-cd ..
