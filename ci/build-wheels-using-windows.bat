@@ -25,4 +25,4 @@ rmdir /Q /S build
 del /S *.pyd
 exit /b
 
-cd %ROOT_DIR%
+cd ..
