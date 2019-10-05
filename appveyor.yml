@@ -4,6 +4,11 @@ branches:
 
 #skip_non_tags: true
 
+environment:
+  TEST_PYPIUSER: ksgwr
+  TEST_PYPIPASSWORD:
+    secure: oaP3zOZ8+sPtBuKfOYnlUDFlC1aPNHC19mW266rGfbI=
+
 image: Visual Studio 2017
 platform:
   - x64
@@ -19,3 +24,20 @@ clone_script:
 
 build_script:
 - cmd: call ci\build-wheels-using-windows.bat %platform%
+
+artifacts:
+  # current directory : build dir
+  - path: python\dist\*.whl
+
+deploy_script:
+  - echo [distutils]                                  > %USERPROFILE%\\.pypirc
+  - echo index-servers =                             >> %USERPROFILE%\\.pypirc
+  - echo     pypi                                    >> %USERPROFILE%\\.pypirc
+  - echo     testpypi                                >> %USERPROFILE%\\.pypirc
+  - echo [testpypi]                                  >> %USERPROFILE%\\.pypirc
+  - echo repository=https://test.pypi.org/legacy/    >> %USERPROFILE%\\.pypirc
+  - echo username=%TEST_PYPIUSER%                    >> %USERPROFILE%\\.pypirc
+  - echo password=%TEST_PYPIPASSWORD%                >> %USERPROFILE%\\.pypirc
+  - set HOME=%USERPROFILE%   
+  # TODO: if ("%APPVEYOR_REPO_TAG%"=="true") upload pypi
+  - win_build.cmd twine upload -r testpypi --skip-existing python\dist\*
