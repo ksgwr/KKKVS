@@ -33,4 +33,4 @@ deploy_script:
   - cmd: set USERNAME=%PYPI_USERNAME%
   - python -m pip install twine
   - set HOME=%USERPROFILE%
-  - python -m twine upload --skip-existing build/python/dist/* --repository-url %TESTREPO% -u %USERNAME% -p %TEST_PYPIPASSWORD%
+  - python -m twine upload --skip-existing build\python\dist\* --repository-url %TESTREPO% -u %USERNAME% -p %TEST_PYPIPASSWORD%
