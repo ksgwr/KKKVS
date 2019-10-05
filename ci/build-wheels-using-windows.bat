@@ -4,7 +4,7 @@ set PLATFORM_PREFIX=
 if "%PLATFORM%"=="x64" set PLATFORM_PREFIX=-x64
 set _CL_=/utf-8
 set PATH=c:\Python37%PLATFORM_PREFIX%;c:\Program Files\Git\usr\bin;c:\MinGW\bin;%PATH%
-set ROOT_DIR=%~dp0
+set ROOT_DIR=%~dp0\..\
 
 mkdir build
 cd build
