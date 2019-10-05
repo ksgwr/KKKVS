@@ -9,13 +9,11 @@ set ROOT_DIR=%~dp0\..\
 mkdir build
 cd build
 cmake .. -A %PLATFORM%
-cmake --build . --config Release
-ctest -C Release
+cmake --build . --config Release || goto :error
+ctest -C Release || goto :error
 cd python
 
 rem https://www.appveyor.com/docs/windows-images-software/#python
-call :BuildPython C:\Python27%PLATFORM_PREFIX%
-call :BuildPython C:\Python33%PLATFORM_PREFIX%
 call :BuildPython C:\Python34%PLATFORM_PREFIX%
 call :BuildPython C:\Python35%PLATFORM_PREFIX%
 call :BuildPython C:\Python36%PLATFORM_PREFIX%
@@ -25,8 +23,11 @@ cd %ROOT_DIR%
 exit
 
 :BuildPython
-%1\python -m pip install -r %ROOT_DIR%\python\requirements-dev.txt
-%1\python %ROOT_DIR%\python\setup.py test bdist_wheel
+%1\python -m pip install -r %ROOT_DIR%\python\requirements-dev.txt || goto :error
+%1\python %ROOT_DIR%\python\setup.py test bdist_wheel || goto :error
 rmdir /Q /S build
 del /S *.pyd
 exit /b
+
+:error
+exit /b %errorlevel%
