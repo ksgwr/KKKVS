@@ -5,7 +5,7 @@ branches:
 #skip_non_tags: true
 
 environment:
-  TEST_PYPIUSER: ksgwr
+  PYPI_USERNAME: ksgwr
   TEST_PYPIPASSWORD:
     secure: oaP3zOZ8+sPtBuKfOYnlUDFlC1aPNHC19mW266rGfbI=
 
@@ -23,20 +23,14 @@ clone_script:
       && git submodule update --init --recursive
 
 build_script:
-- cmd: call ci\build-wheels-using-windows.bat %platform%
+  - cmd: call ci\build-wheels-using-windows.bat %platform%
 
 artifacts:
   - path: build\python\dist\*.whl
 
 deploy_script:
-  - echo [distutils]                                  > %USERPROFILE%\\.pypirc
-  - echo index-servers =                             >> %USERPROFILE%\\.pypirc
-  - echo     pypi                                    >> %USERPROFILE%\\.pypirc
-  - echo     testpypi                                >> %USERPROFILE%\\.pypirc
-  - echo [testpypi]                                  >> %USERPROFILE%\\.pypirc
-  - echo repository=https://test.pypi.org/legacy/    >> %USERPROFILE%\\.pypirc
-  - echo username=%TEST_PYPIUSER%                    >> %USERPROFILE%\\.pypirc
-  - echo password=%TEST_PYPIPASSWORD%                >> %USERPROFILE%\\.pypirc
-  - set HOME=%USERPROFILE%   
-  # TODO: if ("%APPVEYOR_REPO_TAG%"=="true") upload pypi
-  - twine upload -r testpypi --skip-existing build\python\dist\*
+  - cmd: set TESTREPO=https://test.pypi.org/legacy/
+  - cmd: set USERNAME=%PYPI_USERNAME%
+  - python -m pip install twine
+  - set HOME=%USERPROFILE%
+  - python -m twine upload --verbose --skip-existing %_wheel% --repository-url %TESTREPO% -u %USERNAME% -p %TEST_PYPIPASSWORD%
