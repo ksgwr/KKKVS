@@ -8,3 +8,7 @@ wbuild/*
 .DS_Store
 CMakeTmp
 CMakeFiles
+java/.gradle/*
+java/.idea/*
+java/build/*
+java/*.iml
