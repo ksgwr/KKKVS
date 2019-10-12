@@ -18,6 +18,9 @@ include_directories(include)
 # libraries
 add_subdirectory(lib)
 
+# java
+add_subdirectory(java)
+
 # python
 add_subdirectory(python)
 
