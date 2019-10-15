@@ -10,7 +10,7 @@ mkdir build
 cd build
 cmake .. -A %PLATFORM%
 cmake --build . --config Release || goto :error
-ctest -C Release || goto :error
+ctest -C Release --verbose || goto :error
 cd python
 
 rem https://www.appveyor.com/docs/windows-images-software/#python
@@ -30,5 +30,5 @@ del /S *.pyd
 exit /b
 
 :error
-rem exit /b %errorlevel%
+exit /b %errorlevel%
 
