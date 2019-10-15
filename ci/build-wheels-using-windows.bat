@@ -10,7 +10,8 @@ mkdir build
 cd build
 cmake .. -A %PLATFORM%
 cmake --build . --config Release || goto :error
-dir java\build\libs\kkkvs\shared
+ls java\build\libs
+ls java\build\libs\kkkvs\shared
 rem ctest -C Release --verbose || goto :error
 cd python
 
