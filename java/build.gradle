@@ -25,7 +25,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 test {
-    systemProperty "java.library.path", file("${buildDir}/libs/kkkvs/shared").absolutePath
+    systemProperty "java.library.path", file("${buildDir}/libs/jkkkvs/shared").absolutePath
 }
 
 //https://pleiades.io/help/idea/setting-up-jni-development-in-gradle-project.html
@@ -37,7 +37,7 @@ model {
     }
 
     components {
-        kkkvs(NativeLibrarySpec) {
+        jkkkvs(NativeLibrarySpec) {
             binaries.all {
                 if (targetPlatform.operatingSystem.macOsX) {
                     cCompiler.args '-I', "${org.gradle.internal.jvm.Jvm.current().javaHome}/include"

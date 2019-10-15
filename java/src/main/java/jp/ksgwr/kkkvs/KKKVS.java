@@ -5,6 +5,6 @@ public class KKKVS {
     public native void print();
 
     static {
-        System.loadLibrary("kkkvs");
+        System.loadLibrary("jkkkvs");
     }
 }
