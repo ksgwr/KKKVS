@@ -30,6 +30,5 @@ del /S *.pyd
 exit /b
 
 :error
-appveyor exit %errorlevel%
 rem exit /b %errorlevel%
 
