@@ -12,14 +12,14 @@ cmake .. -A %PLATFORM%
 cmake --build . --config Release || goto :error
 ls java\build\libs
 ls java\build\libs\kkkvs\shared
-rem ctest -C Release --verbose || goto :error
+ctest -C Release --verbose || goto :error
 cd python
 
 rem https://www.appveyor.com/docs/windows-images-software/#python
-call :BuildPython C:\Python34%PLATFORM_PREFIX%
-call :BuildPython C:\Python35%PLATFORM_PREFIX%
-call :BuildPython C:\Python36%PLATFORM_PREFIX%
-call :BuildPython C:\Python37%PLATFORM_PREFIX%
+rem call :BuildPython C:\Python34%PLATFORM_PREFIX%
+rem call :BuildPython C:\Python35%PLATFORM_PREFIX%
+rem call :BuildPython C:\Python36%PLATFORM_PREFIX%
+rem call :BuildPython C:\Python37%PLATFORM_PREFIX%
 
 cd %ROOT_DIR%
 exit

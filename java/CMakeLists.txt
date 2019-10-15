@@ -21,11 +21,11 @@ if (JAVA)
                        DEPENDS ${JAVA_DEPS} ${LIBSTATIC})
     add_custom_target(jkkkvs ALL DEPENDS ${JAVA_BUILD_STAMP})
 
-    if(NOT without-test)
-        enable_testing()
-        add_test(NAME testjkkkvs
-                COMMAND ${GRADLE} -b ${BUILD_GRADLE} test -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR})
-    endif()
+    #if(NOT without-test)
+    #    enable_testing()
+    #    add_test(NAME testjkkkvs
+    #            COMMAND ${GRADLE} -b ${BUILD_GRADLE} test -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR})
+    #endif()
 
 else()
     message(WARNING "skip building java library in case of not found java program")
