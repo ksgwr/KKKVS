@@ -19,7 +19,7 @@ include_directories(include)
 add_subdirectory(lib)
 
 # java
-add_subdirectory(java)
+#add_subdirectory(java)
 
 # python
 add_subdirectory(python)
