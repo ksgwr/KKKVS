@@ -61,5 +61,5 @@ model {
     }
 }
 
-test.dependsOn  'kkkvsSharedLibrary'
+test.dependsOn  'jkkkvsSharedLibrary'
 
