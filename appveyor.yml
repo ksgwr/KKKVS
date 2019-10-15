@@ -26,7 +26,7 @@ build_script:
   - cmd: call ci\build-wheels-using-windows.bat %platform% || exit /b %errorlevel%
 
 artifacts:
-  - path: build\java\build\lib\*.jar
+  - path: build\java\build
   - path: build\python\dist\*.whl
 
 deploy_script:
