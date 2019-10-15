@@ -23,12 +23,10 @@ clone_script:
       && git submodule update --init --recursive
 
 build_script:
-  - cmd: call ci\build-wheels-using-windows.bat %platform% || exit /b %errorlevel%
-
-test: false
+  - cmd: call ci\build-wheels-using-windows.bat %platform%
+  - ps: ls -r java\build
 
 artifacts:
-  - path: build\java\build
   - path: build\python\dist\*.whl
 
 deploy_script:
