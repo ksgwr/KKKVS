@@ -30,4 +30,6 @@ del /S *.pyd
 exit /b
 
 :error
-exit /b %errorlevel%
+rem exit /b 1
+rem exit /b %errorlevel%
+
