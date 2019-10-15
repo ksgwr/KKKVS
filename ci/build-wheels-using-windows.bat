@@ -11,7 +11,9 @@ cd build
 cmake .. -A %PLATFORM%
 cmake --build . --config Release || goto :error
 ctest -C Release --verbose || goto :error
+echo "rmdir"
 rmdir /Q /S java\build
+echo "rmdir finish"
 cd python
 
 rem https://www.appveyor.com/docs/windows-images-software/#python
