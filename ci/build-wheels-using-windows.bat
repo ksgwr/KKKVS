@@ -10,6 +10,7 @@ mkdir build
 cd build
 cmake .. -A %PLATFORM%
 cmake --build . --config Release || goto :error
+dir /S /B java\build 
 ctest -C Release --verbose || goto :error
 cd python
 
@@ -27,8 +28,8 @@ exit
 %1\python %ROOT_DIR%\python\setup.py test bdist_wheel || goto :error
 rmdir /Q /S build
 del /S *.pyd
-exit /b
+exit /B
 
 :error
-exit /b %errorlevel%
+exit /B %errorlevel%
 
