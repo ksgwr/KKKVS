@@ -32,7 +32,10 @@ test {
 model {
     platforms {
         x64 {
-            architecture "x64"
+            architecture "x86_64"
+        }
+        x86 {
+            architecture "x86"
         }
     }
 
