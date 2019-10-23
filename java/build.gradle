@@ -37,6 +37,9 @@ model {
         x86 {
             architecture "x86"
         }
+        itanium {
+            architecture "ia-64"
+        }
     }
 
     components {
