@@ -31,8 +31,8 @@ targetCompatibility = 1.8
 import org.gradle.internal.os.OperatingSystem
 test {
     systemProperty "java.library.path", OperatingSystem.current().isWindows() ?
-            file("${buildDir}/cmake/").absolutePath
-            : file("${buildDir}/cmake/Release/").absolutePath
+            file("${buildDir}/cmake/Release/").absolutePath
+            : file("${buildDir}/cmake/").absolutePath
 }
 
 cmake {
