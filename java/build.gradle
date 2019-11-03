@@ -1,6 +1,9 @@
+plugins {
+    id 'net.freudasoft.gradle-cmake-plugin' version '0.0.4'
+}
+
 apply plugin: 'java'
 apply plugin: 'application'
-apply plugin: 'c'
 
 group = 'jp.ksgwr'
 archivesBaseName = 'kkkvs'
@@ -25,47 +28,16 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 test {
-    systemProperty "java.library.path", file("${buildDir}/libs/jkkkvs/shared").absolutePath
+    systemProperty "java.library.path", file("${buildDir}/cmake/").absolutePath
 }
 
-//https://pleiades.io/help/idea/setting-up-jni-development-in-gradle-project.html
-model {
-    platforms {
-        x64 {
-            architecture "x86_64"
-        }
-        x86 {
-            architecture "x86"
-        }
-        itanium {
-            architecture "ia-64"
-        }
-    }
-
-    components {
-        jkkkvs(NativeLibrarySpec) {
-            binaries.all {
-                if (targetPlatform.operatingSystem.macOsX) {
-                    cCompiler.args '-I', "${org.gradle.internal.jvm.Jvm.current().javaHome}/include"
-                    cCompiler.args '-I', "${org.gradle.internal.jvm.Jvm.current().javaHome}/include/darwin"
-                    cCompiler.args '-mmacosx-version-min=10.9'
-                    linker.args '-mmacosx-version-min=10.9'
-                } else if (targetPlatform.operatingSystem.linux) {
-                    cCompiler.args '-I', "${org.gradle.internal.jvm.Jvm.current().javaHome}/include"
-                    cCompiler.args '-I', "${org.gradle.internal.jvm.Jvm.current().javaHome}/include/linux"
-                    cCompiler.args '-D_FILE_OFFSET_BITS=64'
-                } else if (targetPlatform.operatingSystem.windows) {
-                    cCompiler.args "-I${org.gradle.internal.jvm.Jvm.current().javaHome}/include"
-                    cCompiler.args "-I${org.gradle.internal.jvm.Jvm.current().javaHome}/include/win32"
-                    linker.args "Shlwapi.lib", "Advapi32.lib"
-                } else if (targetPlatform.operatingSystem.freeBSD) {
-                    cCompiler.args '-I', "${org.gradle.internal.jvm.Jvm.current().javaHome}/include"
-                    cCompiler.args '-I', "${org.gradle.internal.jvm.Jvm.current().javaHome}/include/freebsd"
-                }
-            }
-        }
-    }
+cmake {
+    workingFolder=file("$buildDir/cmake")
+    sourceFolder=file("$projectDir/src/native")
+    buildSharedLibs=true
+    buildConfig='Debug'
 }
 
-test.dependsOn  'jkkkvsSharedLibrary'
-
+assemble.dependsOn cmakeBuild
+cmakeBuild.dependsOn cmakeConfigure
+clean.dependsOn cmakeClean
