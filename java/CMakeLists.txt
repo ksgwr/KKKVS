@@ -16,7 +16,7 @@ if (JAVA)
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.java")
 
     execute_process(
-        COMMAND ${GRADLE} -b ${BUILD_GRADLE} wrapper
+        COMMAND ${GRADLE} -b ${BUILD_GRADLE} wrapper --no-daemon
         RESULT_VARIABLE result
     )
     if (result)
