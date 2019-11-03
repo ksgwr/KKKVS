@@ -27,15 +27,19 @@ dependencies {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+
+import org.gradle.internal.os.OperatingSystem
 test {
-    systemProperty "java.library.path", file("${buildDir}/cmake/").absolutePath
+    systemProperty "java.library.path", OperatingSystem.current().isWindows() ?
+            file("${buildDir}/cmake/").absolutePath
+            : file("${buildDir}/cmake/Release/").absolutePath
 }
 
 cmake {
     workingFolder=file("$buildDir/cmake")
     sourceFolder=file("$projectDir/src/native")
     buildSharedLibs=true
-    buildConfig='Debug'
+    buildConfig='Release'
 }
 
 assemble.dependsOn cmakeBuild
