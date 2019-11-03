@@ -14,8 +14,14 @@ if (JAVA)
     file(GLOB_RECURSE JAVA_DEPS 
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.java")
-    configure_file("gradle/wrapper/gradle-wrapper.jar" "gradle/wrapper/gradle-wrapper.jar" COPYONLY)
-    configure_file("gradle/wrapper/gradle-wrapper.properties" "gradle/wrapper/gradle-wrapper.properties" COPYONLY)
+
+    execute_process(
+        COMMAND ${GRADLE} -b ${BUILD_GRADLE} wrapper
+        RESULT_VARIABLE result
+    )
+    if (result)
+        message(FATAL_ERROR "Build step for downloading gradle failed: ${result}")
+    endif()
 
     add_custom_command(OUTPUT ${JAVA_BUILD_STAMP}
                        COMMAND ${GRADLE} -b ${BUILD_GRADLE} build -x test -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon
