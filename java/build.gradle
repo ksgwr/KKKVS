@@ -38,6 +38,7 @@ test {
 cmake {
     workingFolder=file("$buildDir/cmake")
     sourceFolder=file("$projectDir/src/native")
+    platform='x64'
     buildSharedLibs=true
     buildConfig='Release'
 }
