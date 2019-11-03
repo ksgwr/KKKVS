@@ -14,6 +14,8 @@ if (JAVA)
     file(GLOB_RECURSE JAVA_DEPS 
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.java")
+    configure_file("gradle/wrapper/gradle-wrapper.jar" "gradle/wrapper/gradle-wrapper.jar" COPYONLY)
+    configure_file("gradle/wrapper/gradle-wrapper.properties" "gradle/wrapper/gradle-wrapper.properties" COPYONLY)
 
     add_custom_command(OUTPUT ${JAVA_BUILD_STAMP}
                        COMMAND ${GRADLE} -b ${BUILD_GRADLE} build -x test -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon
