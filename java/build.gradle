@@ -38,7 +38,15 @@ test {
 cmake {
     workingFolder = file("$buildDir/cmake")
     sourceFolder = file("$projectDir/src/native")
-    platform = OperatingSystem.current().isWindows() ? 'x64' : null
+    if (OperatingSystem.current().isWindows() && project.hasProperty("platform")) {
+        if (project.hasProperty("platform") && project.getProperty("platform").equals("Win32")) {
+            platform = 'x86'
+        } else {
+            platform = 'x64'
+        }
+    } else {
+        platform = null
+    }
     buildSharedLibs = true
     buildConfig = 'Release'
 
