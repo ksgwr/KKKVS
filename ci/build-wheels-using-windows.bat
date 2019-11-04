@@ -10,7 +10,7 @@ mkdir build
 cd build
 cmake .. -A %PLATFORM%
 cmake --build . --config Release || goto :error
-dir /S /B java\build 
+dir /S /B lib\kkkvs 
 ctest -C Release --verbose || goto :error
 cd python
 
