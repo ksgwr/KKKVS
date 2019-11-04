@@ -9,7 +9,8 @@ add_library(kkkvs SHARED ${KKKVS_SOURCES})
 install(TARGETS
         kkkvs
         kkkvs_static
-        LIBRARY DESTINATION lib)
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib)
 
 file(GLOB HEADER_FILES ${PROJECT_SOURCE_DIR}/include/kkkvs/*.hpp)
 install(FILES ${HEADER_FILES} DESTINATION include/kkkvs)
