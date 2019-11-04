@@ -24,7 +24,6 @@ clone_script:
 
 build_script:
   - cmd: call ci\build-wheels-using-windows.bat %platform%
-  - ps: ls -r build\java\build
 
 artifacts:
   - path: build\python\dist\*.whl

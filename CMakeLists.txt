@@ -20,7 +20,7 @@ add_subdirectory(lib)
 
 # java
 #if (NOT APPLE) # wait for release gradle 6.0 (java 13)
-#  add_subdirectory(java)
+  add_subdirectory(java)
 #endif()
 
 # python

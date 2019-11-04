@@ -1,3 +1,4 @@
+@echo on
 set PLATFORM=%1
 if "%PLATFORM%"=="" set PLATFORM=x64
 set PLATFORM_PREFIX=

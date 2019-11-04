@@ -17,6 +17,11 @@ if (NOT STATIC_LIB_PATH)
   set(STATIC_LIB_PATH kkkvs)
 endif()
 
+message("static_lib_path: ${STATIC_LIB_PATH}")
+if (NOT EXISTS "${STATIC_LIB_PATH}")
+   message("not exists file")
+endif()
+
 target_include_directories(jkkkvs PRIVATE ${JNI_INCLUDE_DIRS} ${INCLUDE_DIR_PATH})
 
 target_link_libraries(jkkkvs ${JNI_LIBRARIES} ${STATIC_LIB_PATH})
