@@ -18,7 +18,6 @@ if (PYTHON)
     set(SETUP_PY    "${CMAKE_CURRENT_SOURCE_DIR}/setup.py")
     set(BUILD_STAMP "${CMAKE_CURRENT_BINARY_DIR}/dist.stamp")
     set(OUTPUT      "${CMAKE_CURRENT_BINARY_DIR}/dist")
-    set(LIBSTATIC   "${CMAKE_BINARY_DIR}/lib/kkkvs/libkkkvs.a")
     file(GLOB_RECURSE DEPS 
             "${CMAKE_CURRENT_SOURCE_DIR}/*.py"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.py"
@@ -45,7 +44,7 @@ if (PYTHON)
     add_custom_command(OUTPUT ${BUILD_STAMP}
                        COMMAND ${VENVPY} ${SETUP_PY} bdist_wheel
                        COMMAND ${CMAKE_COMMAND} -E touch ${BUILD_STAMP}
-                       DEPENDS ${DEPS} ${LIBSTATIC})
+                       DEPENDS ${DEPS} kkkvs_static)
     add_custom_target(kkkvspy ALL DEPENDS ${BUILD_STAMP})
 
     if(NOT without-test)

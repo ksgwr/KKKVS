@@ -29,7 +29,7 @@ if (JAVA)
                             -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon --debug
                             -PstaticLibPath=${LIBSTATIC} -PincludeDirPath=${PROJECT_SOURCE_DIR}/include
                        COMMAND ${CMAKE_COMMAND} -E touch ${JAVA_BUILD_STAMP}
-                       DEPENDS ${JAVA_DEPS} ${LIBSTATIC})
+                       DEPENDS ${JAVA_DEPS} kkkvs_static)
     add_custom_target(jkkkvs ALL DEPENDS ${JAVA_BUILD_STAMP})
 
     if(NOT without-test)
