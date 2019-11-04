@@ -39,7 +39,7 @@ cmake {
     workingFolder = file("$buildDir/cmake")
     sourceFolder = file("$projectDir/src/native")
     if (OperatingSystem.current().isWindows() && project.hasProperty("platform")) {
-        platform = project.hasProperty("platform")
+        platform = project.getProperty("platform")
     } else {
         platform = null
     }
