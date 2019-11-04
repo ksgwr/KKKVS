@@ -1,4 +1,3 @@
-@echo on
 set PLATFORM=%1
 if "%PLATFORM%"=="" set PLATFORM=x64
 set PLATFORM_PREFIX=
@@ -9,9 +8,9 @@ set ROOT_DIR=%~dp0\..\
 
 mkdir build
 cd build
+@echo on
 cmake .. -A %PLATFORM%
 cmake --build . --config Release || goto :error
-dir /S /B lib\kkkvs 
 ctest -C Release --verbose || goto :error
 cd python
 

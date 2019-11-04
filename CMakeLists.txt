@@ -19,9 +19,9 @@ include_directories(include)
 add_subdirectory(lib)
 
 # java
-#if (NOT APPLE) # wait for release gradle 6.0 (java 13)
+if (NOT APPLE) # wait for release gradle 6.0 (java 13)
   add_subdirectory(java)
-#endif()
+endif()
 
 # python
 add_subdirectory(python)

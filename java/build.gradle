@@ -50,6 +50,8 @@ cmake {
     }
 }
 
+
+
 assemble.dependsOn cmakeBuild
 test.dependsOn cmakeBuild
 cmakeBuild.dependsOn cmakeConfigure
