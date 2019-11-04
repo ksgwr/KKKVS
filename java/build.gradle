@@ -36,13 +36,21 @@ test {
 }
 
 cmake {
-    workingFolder=file("$buildDir/cmake")
-    sourceFolder=file("$projectDir/src/native")
-    platform='x64'
-    buildSharedLibs=true
-    buildConfig='Release'
+    workingFolder = file("$buildDir/cmake")
+    sourceFolder = file("$projectDir/src/native")
+    platform = OperatingSystem.current().isWindows() ? 'x64' : null
+    buildSharedLibs = true
+    buildConfig = 'Release'
+
+    if (project.hasProperty("staticLibPath")) {
+        def.STATIC_LIB_PATH = project.getProperty("staticLibPath")
+    }
+    if (project.hasProperty("includeDirPath")) {
+        def.INCLUDE_DIR_PATH = project.getProperty("includeDirPath")
+    }
 }
 
 assemble.dependsOn cmakeBuild
+test.dependsOn cmakeBuild
 cmakeBuild.dependsOn cmakeConfigure
 clean.dependsOn cmakeClean

@@ -10,12 +10,14 @@ endif()
 
 find_package(JNI REQUIRED)
 
-file(GLOB JKKKVS_SOURCE *.c)
+file(GLOB JKKKVS_SOURCE *.cpp)
 add_library(jkkkvs SHARED ${JKKKVS_SOURCE})
 
-target_include_directories(jkkkvs
-  PRIVATE
-  ${JNI_INCLUDE_DIRS}
-)
-target_link_libraries(jkkkvs ${JNI_LIBRARIES})
+if (NOT STATIC_LIB_PATH)
+  set(STATIC_LIB_PATH kkkvs)
+endif()
+
+target_include_directories(jkkkvs PRIVATE ${JNI_INCLUDE_DIRS} ${INCLUDE_DIR_PATH})
+
+target_link_libraries(jkkkvs ${JNI_LIBRARIES} ${STATIC_LIB_PATH})
 

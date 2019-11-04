@@ -24,7 +24,9 @@ if (JAVA)
     endif()
 
     add_custom_command(OUTPUT ${JAVA_BUILD_STAMP}
-                       COMMAND ${GRADLE} -b ${BUILD_GRADLE} build -x test -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon
+                       COMMAND ${GRADLE} -b ${BUILD_GRADLE} build -x test
+                            -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon
+                            -PstaticLibPath=${LIBSTATIC} -PincludeDirPath=${PROJECT_SOURCE_DIR}/include
                        COMMAND ${CMAKE_COMMAND} -E touch ${JAVA_BUILD_STAMP}
                        DEPENDS ${JAVA_DEPS} ${LIBSTATIC})
     add_custom_target(jkkkvs ALL DEPENDS ${JAVA_BUILD_STAMP})
@@ -32,7 +34,9 @@ if (JAVA)
     if(NOT without-test)
         enable_testing()
         add_test(NAME testjkkkvs
-                COMMAND ${GRADLE} -b ${BUILD_GRADLE} test -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon --debug)
+                COMMAND ${GRADLE} -b ${BUILD_GRADLE} test
+                    -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon --debug
+                    -PstaticLibPath=${LIBSTATIC} -PincludeDirPath=${PROJECT_SOURCE_DIR}/include)
     endif()
 
 else()
