@@ -10,7 +10,8 @@ if (JAVA)
     set(BUILD_GRADLE "${CMAKE_CURRENT_SOURCE_DIR}/build.gradle")
     set(JAVA_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/build")
     set(JAVA_BUILD_STAMP "${CMAKE_CURRENT_BINARY_DIR}/build.stamp")
-    set(LIBSTATIC   "${CMAKE_BINARY_DIR}/lib/kkkvs/libkkkvs.a")
+    get_property(LIBSTATIC TARGET kkkvs_static PROPERTY LOCATION)
+
     file(GLOB_RECURSE JAVA_DEPS 
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
             "${CMAKE_CURRENT_SOURCE_DIR}/src/*.java")
