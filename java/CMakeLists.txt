@@ -26,7 +26,7 @@ if (JAVA)
 
     add_custom_command(OUTPUT ${JAVA_BUILD_STAMP}
                        COMMAND ${GRADLE} -b ${BUILD_GRADLE} build -x test
-                            -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon
+                            -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon --debug
                             -PstaticLibPath=${LIBSTATIC} -PincludeDirPath=${PROJECT_SOURCE_DIR}/include
                        COMMAND ${CMAKE_COMMAND} -E touch ${JAVA_BUILD_STAMP}
                        DEPENDS ${JAVA_DEPS} ${LIBSTATIC})
