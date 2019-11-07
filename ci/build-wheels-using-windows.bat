@@ -1,5 +1,6 @@
 set PLATFORM=%1
 if "%PLATFORM%"=="" set PLATFORM=x64
+if "%PLATFORM%"=="x86" set PLATFORM=Win32
 set PLATFORM_PREFIX=
 if "%PLATFORM%"=="x64" set PLATFORM_PREFIX=-x64
 set _CL_=/utf-8

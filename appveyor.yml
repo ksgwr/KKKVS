@@ -12,7 +12,7 @@ environment:
 image: Visual Studio 2017
 platform:
   - x64
-  - Win32
+  - x86
 configuration: Debug
 
 clone_script:
