@@ -6,9 +6,10 @@ if "%PLATFORM%"=="x86" set PLATFORM=Win32
 set PLATFORM_PREFIX=
 if "%PLATFORM%"=="x64" set PLATFORM_PREFIX=-x64
 set PROGRAM_FILES_PREFIX=
-if "%PLATFORM"=="Win32" set PROGRAM_FILES_PREFIX=" (x86)"
+if "%PLATFORM%"=="Win32" set PROGRAM_FILES_PREFIX=" (x86)"
 set _CL_=/utf-8
-set PATH=c:\Python37%PLATFORM_PREFIX%;C:\Program Files%PROGRAM_FILES_PREFIX%\Java\jdk1.8.0;c:\Program Files\Git\usr\bin;c:\MinGW\bin;%PATH%
+set JAVA_HOME=C:\Program Files%PROGRAM_FILES_PREFIX%\Java\jdk1.8.0
+set PATH=c:\Python37%PLATFORM_PREFIX%;%JAVA_HOME%\bin;c:\Program Files\Git\usr\bin;c:\MinGW\bin;%PATH%
 set ROOT_DIR=%~dp0\..\
 
 mkdir build
