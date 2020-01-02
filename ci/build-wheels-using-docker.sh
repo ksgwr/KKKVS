@@ -5,7 +5,7 @@ readonly ROOT_DIR=$(cd $(dirname $0)/../; pwd)
 
 # install require library
 /opt/python/cp35-cp35m/bin/pip install cmake
-yum install gcc-c++ -y
+yum install gcc-c++ openssl-devel -y
 
 # build basic
 mkdir -p ${ROOT_DIR}/build
