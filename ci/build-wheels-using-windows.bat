@@ -1,6 +1,8 @@
 set PLATFORM=%1
 if "%PLATFORM%"=="" set PLATFORM=x64
-rem if "%PLATFORM%"=="x86" set PLATFORM=Win32
+rem see https://www.appveyor.com/docs/appveyor-yml/
+rem see https://cmake.org/cmake/help/git-master/generator/Visual%20Studio%2016%202019.html
+if "%PLATFORM%"=="x86" set PLATFORM=Win32
 set PLATFORM_PREFIX=
 if "%PLATFORM%"=="x64" set PLATFORM_PREFIX=-x64
 set _CL_=/utf-8
