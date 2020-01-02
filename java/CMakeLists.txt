@@ -26,7 +26,7 @@ if (JAVA)
 
     add_custom_command(OUTPUT ${JAVA_BUILD_STAMP}
                        COMMAND ${GRADLE} -b ${BUILD_GRADLE} build -x test
-                            -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon --debug
+                            -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon
                             -Pplatform=${CMAKE_GENERATOR_PLATFORM}
                             -PstaticLibPath=${LIBSTATIC} -PincludeDirPath=${PROJECT_SOURCE_DIR}/include
                        COMMAND ${CMAKE_COMMAND} -E touch ${JAVA_BUILD_STAMP}
@@ -37,7 +37,7 @@ if (JAVA)
         enable_testing()
         add_test(NAME testjkkkvs
                 COMMAND ${GRADLE} -b ${BUILD_GRADLE} test
-                    -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon --debug
+                    -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon
                     -PstaticLibPath=${LIBSTATIC} -PincludeDirPath=${PROJECT_SOURCE_DIR}/include)
     endif()
 
