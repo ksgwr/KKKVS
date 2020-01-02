@@ -6,6 +6,8 @@ readonly ROOT_DIR=$(cd $(dirname $0)/../; pwd)
 # install require library
 /opt/python/cp35-cp35m/bin/pip install cmake
 yum install gcc-c++ -y
+# for installing cryptography on manylinux1_i686 upper python 3.6
+yum install openssl101e-devel -y
 
 # build basic
 mkdir -p ${ROOT_DIR}/build
@@ -17,7 +19,7 @@ cd python
 
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
-    "${PYBIN}/pip" install -r ${ROOT_DIR}/python/requirements-dev.txt --user
+    LDFLAGS="-L/usr/lib/openssl101e $LDFLAGS" CFLAGS="-I/usr/include/openssl101e $CFLAGS" "${PYBIN}/pip" install -r ${ROOT_DIR}/python/requirements-dev.txt
     
     # for rebuild in cp27m and cp27mu
     rm -rf build
