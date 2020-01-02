@@ -5,9 +5,8 @@ readonly ROOT_DIR=$(cd $(dirname $0)/../; pwd)
 
 # install require library
 /opt/python/cp35-cp35m/bin/pip install cmake
-yum install gcc-c++ -y
-# for installing cryptography on manylinux1_i686 upper python 3.6
-yum install openssl101e-devel -y
+# install openssl101e-devel for installing cryptography on manylinux1_i686 upper python 3.6
+yum install openssl101e-devel gcc-c++ -y
 
 # build basic
 mkdir -p ${ROOT_DIR}/build
