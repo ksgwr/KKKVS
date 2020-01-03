@@ -44,10 +44,10 @@ class MainTest(unittest.TestCase):
         self.assertEqual(data3, index.get(2))
 
         # put 1 data (replace)
-        data4 = b"あ"
+        data4 = u"あ"
         index.put(2, data4)
 
-        self.assertEqual(data4, index.get(2))
+        self.assertEqual(data4.encode('utf-8'), index.get(2))
 
         # remove hard 1 data
         index.remove(0, True)
