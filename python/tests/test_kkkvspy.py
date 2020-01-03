@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import unittest
 import kkkvspy
 
@@ -10,7 +12,7 @@ class MainTest(unittest.TestCase):
         index = kkkvspy.ValueIndex()
         self.assertIsNotNone(index)
 
-        i1 = index.getUncheckedOldestRemovedIndex()
+        i1 = index.getUncheckedRemovedIndex()
 
         self.assertEqual(-1, i1)
 
@@ -28,10 +30,11 @@ class MainTest(unittest.TestCase):
         actual2 = index.get(1)
         self.assertEqual(data2, actual2)
 
-        # remove 1 data
+        # remove soft 1 data
         index.remove(1)
 
         self.assertFalse(index.exists(1))
+        self.assertEqual(data2, index.get(1))
 
         # add 1 data (new allocation)
         data3 = b"data3"
@@ -40,14 +43,26 @@ class MainTest(unittest.TestCase):
         self.assertTrue(index.exists(2))
         self.assertEqual(data3, index.get(2))
 
+        # put 1 data (replace)
+        data4 = "あ"
+        index.put(2, data4)
+
+        self.assertEqual(data4.encode('utf-8'), index.get(2))
+
+        # remove hard 1 data
+        index.remove(0, True)
+
+        self.assertFalse(index.exists(0))
+        self.assertEqual(b'', index.get(0))
+
         # add 1 data (reuse)
-        i2 = index.getUncheckedOldestRemovedIndex()
+        i2 = index.getUncheckedRemovedIndex()
 
         self.assertEqual(1, i2)
 
         index.checkRemovedIndex(i2)
 
-        i3 = index.getUncheckedOldestRemovedIndex()
+        i3 = index.getUncheckedRemovedIndex()
 
         self.assertEqual(-1, i3)
 

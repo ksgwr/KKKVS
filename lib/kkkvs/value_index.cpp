@@ -32,6 +32,7 @@ std::size_t ValueIndex::add(const std::vector<byte>& data) {
 }
 
 void ValueIndex::put(std::size_t i, const std::vector<byte>& data) {
+  // TODO : size check and should not replace unused data
   Value& value = values_.at(i);
   value.data = data;
   value.used = true;
@@ -52,6 +53,7 @@ const std::vector<byte> ValueIndex::get(std::size_t i) {
 }
 
 void ValueIndex::remove(std::size_t i, bool hard) {
+  // TODO : check used flag, should not add duplicate index
   Value& value = values_.at(i);  
   value.used = false;
 
@@ -67,7 +69,7 @@ void ValueIndex::remove(std::size_t i) {
   ValueIndex::remove(i, false);
 }
 
-int ValueIndex::getUncheckedOldestRemovedIndex() {
+int ValueIndex::getUncheckedRemovedIndex() {
   if (uncheckes_.empty()) {
     return -1;
   }

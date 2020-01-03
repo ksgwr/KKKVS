@@ -30,7 +30,7 @@ class ValueIndex {
     const std::vector<byte> get(std::size_t);
     void remove(std::size_t, bool);
     void remove(std::size_t);
-    int getUncheckedOldestRemovedIndex();
+    int getUncheckedRemovedIndex();
     void checkRemovedIndex(std::size_t);
   };
   

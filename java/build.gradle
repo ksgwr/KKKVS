@@ -11,17 +11,18 @@ version = '0.0.1'
 
 
 wrapper {
-  gradleVersion = '6.0'
+    gradleVersion = '6.0'
 }
 
 mainClassName = 'jp.ksgwr.kkkvs.KKKVS'
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-  testCompile('junit:junit:4.12')
+    testCompile('junit:junit:4.12')
+    testCompile('org.assertj:assertj-core:3.14.0')
 }
 
 sourceCompatibility = 1.8

@@ -21,10 +21,55 @@ public:
         return (jint)ret;
     }
 
+    void put(JNIEnv *env, jint ij, jstring dataj) {
+        int i = (int) ij;
+        const char *data = env->GetStringUTFChars(dataj, NULL);
+        if (data == NULL) return;
+        byte* buf = (byte*)data;
+        std::vector<byte> byteData(buf, buf + strlen(data));
+
+        kkkvs::ValueIndex::put(i, byteData);
+
+        env->ReleaseStringUTFChars(dataj, data);
+    }
+
+    jboolean exists(JNIEnv *env, jint ij) {
+        int i = (int) ij;
+
+        bool ret = kkkvs::ValueIndex::exists(i);
+
+        return (jboolean) ret;
+    }
+
     jstring get(JNIEnv *env, jint ij) {
         int i = (int) ij;
         std::vector<byte> byteData = kkkvs::ValueIndex::get(i);
         return env->NewStringUTF(reinterpret_cast<char*>(byteData.data()));
+    }
+
+    void remove(JNIEnv *env, jint ij, jboolean hardj) {
+        int i = (int) ij;
+        bool hard = (bool) hardj;
+
+        kkkvs::ValueIndex::remove(i, hard);
+    }
+
+    void remove(JNIEnv *env, jint ij) {
+        int i = (int) ij;
+
+        kkkvs::ValueIndex::remove(i);
+    }
+
+    jint getUncheckedRemovedIndex(JNIEnv *env) {
+        int ret = kkkvs::ValueIndex::getUncheckedRemovedIndex();
+
+        return (jint) ret;
+    }
+
+    void checkRemovedIndex(JNIEnv *env, jint ij) {
+        int i = (int) ij;
+
+        kkkvs::ValueIndex::checkRemovedIndex(i);
     }
 
     static JValueIndex* getInstance(JNIEnv *env, jobject obj) {
@@ -50,6 +95,18 @@ Java_jp_ksgwr_kkkvs_ValueIndex_add(JNIEnv *env, jobject obj, jstring data)
     return JValueIndex::getInstance(env, obj)->add(env, data);
 }
 
+JNIEXPORT void JNICALL
+Java_jp_ksgwr_kkkvs_ValueIndex_put(JNIEnv *env, jobject obj, jint i, jstring data)
+{
+    JValueIndex::getInstance(env, obj)->put(env, i, data);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_jp_ksgwr_kkkvs_ValueIndex_exists(JNIEnv *env, jobject obj, jint i)
+{
+    return JValueIndex::getInstance(env, obj)->exists(env, i);
+}
+
 JNIEXPORT jstring JNICALL
 Java_jp_ksgwr_kkkvs_ValueIndex_get(JNIEnv *env, jobject obj, jint i)
 {
@@ -57,10 +114,27 @@ Java_jp_ksgwr_kkkvs_ValueIndex_get(JNIEnv *env, jobject obj, jint i)
 }
 
 JNIEXPORT void JNICALL
-Java_jp_ksgwr_kkkvs_ValueIndex_print(JNIEnv *env, jobject obj)
+Java_jp_ksgwr_kkkvs_ValueIndex_remove(JNIEnv *env, jobject obj, jint i, jboolean hard)
 {
-    printf("Hello World! Fuga\n");
-    return;
+    JValueIndex::getInstance(env, obj)->remove(env, i, hard);
+}
+
+JNIEXPORT void JNICALL
+Java_jp_ksgwr_kkkvs_ValueIndex_remove2(JNIEnv *env, jobject obj, jint i)
+{
+    JValueIndex::getInstance(env, obj)->remove(env, i);
+}
+
+JNIEXPORT jint JNICALL
+Java_jp_ksgwr_kkkvs_ValueIndex_getUncheckedRemovedIndex(JNIEnv *env, jobject obj)
+{
+    return JValueIndex::getInstance(env, obj)->getUncheckedRemovedIndex(env);
+}
+
+JNIEXPORT void JNICALL
+Java_jp_ksgwr_kkkvs_ValueIndex_checkRemovedIndex(JNIEnv *env, jobject obj, jint i)
+{
+    return JValueIndex::getInstance(env, obj)->checkRemovedIndex(env, i);
 }
 
 //#ifdef ___cplusplus

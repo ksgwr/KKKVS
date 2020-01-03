@@ -11,7 +11,7 @@ namespace {
 }
 
 TEST_F(ValueIndexTest, SimpleCase) {
-    int i1 = index.getUncheckedOldestRemovedIndex();
+    int i1 = index.getUncheckedRemovedIndex();
     
     EXPECT_EQ(-1, i1);
     
@@ -33,7 +33,7 @@ TEST_F(ValueIndexTest, SimpleCase) {
     std::string actualStr2(actual2.begin(), actual2.end());
     EXPECT_EQ(str2, actualStr2);
 
-    // remove 1 data
+    // remove soft 1 data
     index.remove(1);
 
     EXPECT_FALSE(index.exists(1));
@@ -44,19 +44,33 @@ TEST_F(ValueIndexTest, SimpleCase) {
     EXPECT_EQ(2, index.add(data3));
 
     ASSERT_TRUE(index.exists(2));
-    
+
     std::vector<byte> actual3 = index.get(2);
     std::string actualStr3(actual3.begin(), actual3.end());
     EXPECT_EQ(str3, actualStr3);
 
+    // put 1 data (replace)
+    std::string str4 = "data4";
+    std::vector<byte> data4(str4.begin(), str4.end());
+    index.put(2, data4);
+
+    std::vector<byte> actual4 = index.get(2);
+    std::string actualStr4(actual4.begin(), actual4.end());
+    EXPECT_EQ(str4, actualStr4);
+
+    // remove hard 1 data
+    index.remove(0, true);
+
+    EXPECT_FALSE(index.exists(0));
+
     // add 1 data (reuse)
-    int i2 = index.getUncheckedOldestRemovedIndex();
+    int i2 = index.getUncheckedRemovedIndex();
     
     EXPECT_EQ(1, i2);
 
     index.checkRemovedIndex(i2);
 
-    int i3 = index.getUncheckedOldestRemovedIndex();
+    int i3 = index.getUncheckedRemovedIndex();
 
     EXPECT_EQ(-1, i3);
 

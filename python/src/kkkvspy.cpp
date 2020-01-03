@@ -12,16 +12,6 @@ int add(int i, int j) {
     return i + j;
 }
 
-//std::vector<byte> create() {
-py::bytes create() {    
-    std::string str1("data1");
-    std::vector<byte> value(str1.begin(), str1.end());
-    std::vector<byte> v(value.size());
-    std::copy(value.begin(), value.end(), v.begin());
-    std::string s(v.begin(), v.end());
-    return py::bytes(s);
-}
-
 class PyValueIndex : public kkkvs::ValueIndex {
 public:
 
@@ -45,8 +35,7 @@ public:
 PYBIND11_MODULE(kkkvspy, m) {
     m.doc() = "kkkvspy library";
 
-    m.def("add", &add, "A function which adds two numbers")
-        .def("create", &create, "create sample data");
+    m.def("add", &add, "A function which adds two numbers");
 
     py::class_<PyValueIndex>(m, "ValueIndex")
             .def(py::init<>())
@@ -58,6 +47,6 @@ PYBIND11_MODULE(kkkvspy, m) {
             .def("get", (py::bytes (PyValueIndex::*)(std::size_t)) & PyValueIndex::get, py::arg("i"))
             .def("remove", (void (PyValueIndex::*)(std::size_t, bool)) & PyValueIndex::remove, py::arg("i"), py::arg("hard"))
             .def("remove", (void (PyValueIndex::*)(std::size_t)) & PyValueIndex::remove, py::arg("i"))
-            .def("getUncheckedOldestRemovedIndex", &PyValueIndex::getUncheckedOldestRemovedIndex)
+            .def("getUncheckedRemovedIndex", &PyValueIndex::getUncheckedRemovedIndex)
             .def("checkRemovedIndex", &PyValueIndex::checkRemovedIndex, py::arg("i"));
 }
