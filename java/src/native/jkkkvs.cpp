@@ -23,7 +23,8 @@ public:
 
     jint add(JNIEnv *env, jbyteArray dataj) {
         jsize lenj = env->GetArrayLength(dataj);
-        jbyte *elements = env->GetByteArrayElements(dataj, 0);
+        jbyte *elements = env->GetByteArrayElements(dataj, NULL);
+        if (elements == NULL) return -1;
         std::vector<byte> byteData(elements, elements + (int)lenj);
 
         int ret = kkkvs::ValueIndex::add(byteData);
@@ -57,6 +58,22 @@ public:
         int i = (int) ij;
         std::vector<byte> byteData = kkkvs::ValueIndex::get(i);
         return env->NewStringUTF(reinterpret_cast<char*>(byteData.data()));
+    }
+
+    jbyteArray getAsBytes(JNIEnv *env, jint ij) {
+        int i = (int) ij;
+        
+        std::vector<byte> byteData = kkkvs::ValueIndex::get(i);
+
+        jbyteArray ret = env->NewByteArray(byteData.size());
+        jbyte* b = env->GetByteArrayElements(ret, 0);
+        for (int i = 0; i < byteData.size(); i++) {
+            b[i] = (jbyte) byteData.at(i);
+        }
+
+        env->ReleaseByteArrayElements(ret, b, 0);
+
+        return ret;
     }
 
     void remove(JNIEnv *env, jint ij, jboolean hardj) {
@@ -129,6 +146,12 @@ JNIEXPORT jstring JNICALL
 Java_jp_ksgwr_kkkvs_ValueIndex_get(JNIEnv *env, jobject obj, jint i)
 {
     return JValueIndex::getInstance(env, obj)->get(env, i);
+}
+
+JNIEXPORT jbyteArray JNICALL
+Java_jp_ksgwr_kkkvs_ValueIndex_getAsBytes(JNIEnv *env, jobject obj, jint i)
+{
+    return JValueIndex::getInstance(env, obj)->getAsBytes(env, i);
 }
 
 JNIEXPORT void JNICALL

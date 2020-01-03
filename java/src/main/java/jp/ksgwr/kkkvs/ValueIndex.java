@@ -37,6 +37,8 @@ public class ValueIndex {
 
     public native String get(int i);
 
+    public native byte[] getAsBytes(int i);
+
     public native void remove(int i, boolean hard);
 
     private native void remove2(int i);

@@ -1,6 +1,5 @@
 package jp.ksgwr.kkkvs;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,14 +26,14 @@ public class ValueIndexTest {
         // get 2 data
         String actual1 = index.get(0);
         assertThat(actual1).isEqualTo(data1);
-        byte[] actual2 = index.get(1).getBytes();
+        byte[] actual2 = index.getAsBytes(1);
         assertThat(actual2).isEqualTo(data2);
 
         // remove soft 1 data
         index.remove(1);
 
         assertThat(index.exists(1)).isFalse();
-        assertThat(index.get(1).getBytes()).isEqualTo(actual2);
+        assertThat(index.getAsBytes(1)).isEqualTo(actual2);
 
         // add 1 data (new allocation)
         String data3 = "あ";
@@ -47,7 +46,7 @@ public class ValueIndexTest {
         byte[] data4 = "い".getBytes();
         index.put(2, data4);
 
-        assertThat(index.get(2).getBytes()).isEqualTo(data4);
+        assertThat(index.getAsBytes(2)).isEqualTo(data4);
 
         // remove hard 1 data
         index.remove(0, true);
