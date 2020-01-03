@@ -62,7 +62,7 @@ public:
 
     jbyteArray getAsBytes(JNIEnv *env, jint ij) {
         int i = (int) ij;
-        
+
         std::vector<byte> byteData = kkkvs::ValueIndex::get(i);
 
         jbyteArray ret = env->NewByteArray(byteData.size());

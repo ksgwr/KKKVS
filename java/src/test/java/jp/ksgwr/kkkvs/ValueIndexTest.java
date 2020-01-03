@@ -40,7 +40,7 @@ public class ValueIndexTest {
         assertThat(index.add(data3)).isEqualTo(2);
 
         assertThat(index.exists(2)).isTrue();
-        assertThat(index.get(2)).isEqualTo(data3);
+        assertThat(index.get(2).getBytes()).isEqualTo(data3.getBytes());
 
         // put 1 data (replace)
         byte[] data4 = "い".getBytes();

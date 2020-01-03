@@ -37,7 +37,7 @@ if (JAVA)
         enable_testing()
         add_test(NAME testjkkkvs
                 COMMAND ${GRADLE} -b ${BUILD_GRADLE} test
-                    -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon
+                    -Dorg.gradle.project.buildDir=${JAVA_BUILD_DIR} --no-daemon --debug
                     -PstaticLibPath=${LIBSTATIC} -PincludeDirPath=${PROJECT_SOURCE_DIR}/include)
     endif()
 
