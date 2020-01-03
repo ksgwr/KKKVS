@@ -21,8 +21,10 @@ public class ValueIndex {
 
     public native int add(String data);
 
+    private native int add2(byte[] data);
+
     public int add(byte[] data) {
-        return add(new String(data, StandardCharsets.UTF_8));
+        return add2(data);
     }
 
     public native void put(int i, String data);
