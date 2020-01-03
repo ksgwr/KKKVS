@@ -1,5 +1,7 @@
 package jp.ksgwr.kkkvs;
 
+import java.nio.charset.StandardCharsets;
+
 public class ValueIndex {
 
     static {
@@ -20,13 +22,13 @@ public class ValueIndex {
     public native int add(String data);
 
     public int add(byte[] data) {
-        return add(new String(data));
+        return add(new String(data, StandardCharsets.UTF_8));
     }
 
     public native void put(int i, String data);
 
     public void put(int i, byte[] data) {
-        put(i, new String(data));
+        put(i, new String(data, StandardCharsets.UTF_8));
     }
 
     public native boolean exists(int i);
