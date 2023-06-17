@@ -1,6 +1,14 @@
 KKKVS(Work In Progress) [![Build Status](https://travis-ci.org/ksgwr/KKKVS.svg?branch=master)](https://travis-ci.org/ksgwr/KKKVS) [![Build status](https://ci.appveyor.com/api/projects/status/yfmw2kna6iijxq82/branch/master?svg=true)](https://ci.appveyor.com/project/ksgwr/kkkvs/branch/master)
 =====
 
+# Design
+
+![KKKVS Design](KKKVS_design.png)
+
+# Usecase
+
+![KKKVS Usecase](KKKVS_usecase.png)
+
 # Install
 
 ```
